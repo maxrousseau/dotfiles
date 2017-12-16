@@ -15,6 +15,17 @@
 ; auto complete setup
 (require 'auto-complete)
 
+; add zen mode
+(add-to-list 'load-path "~/.emacs.d/elpa/zen-mode/")
+
+(require 'zen-mode)
+(global-set-key (kbd "C-M-z") 'zen-mode)
+
+;; setup elpy (python IDE)
+(package-initialize)
+(elpy-enable)
+
+
 ; auto complete auctex
 (require 'auto-complete-auctex)
 ; outline window
@@ -105,3 +116,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'downcase-region 'disabled nil)
