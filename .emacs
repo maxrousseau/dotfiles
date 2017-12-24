@@ -12,6 +12,21 @@
 (require 'evil)
 (evil-mode 1)
 
+;; neotree setup
+(add-to-list 'load-path "~/.emacs.d/elpa/neotree")
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+(add-hook 'neotree-mode-hook
+            (lambda ()
+              (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+              (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
+              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
+(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+
 ; auto complete setup
 (require 'auto-complete)
 
@@ -25,6 +40,14 @@
 (package-initialize)
 (elpy-enable)
 
+;; setup go-mode
+(add-to-list 'load-path "~/.emacs.d/elpa/go-mode-20170726.555/")
+(require 'go-mode)
+
+;; autocomplete setup for go
+(require 'go-autocomplete)
+(require 'auto-complete-config)
+(ac-config-default)
 
 ; auto complete auctex
 (require 'auto-complete-auctex)
@@ -33,6 +56,8 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex) ; with AUCTeX LaTeX mode
 (setq reftex-plug-into-AUCTeX t) ; Anleitung S. 4
 
+;; setup flyspell for text correction
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
 
 ; do default config for auto-complete
 (require 'auto-complete-config)
@@ -58,7 +83,8 @@
 ; setup color theme
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-dark-laptop)
+;;(color-theme-dark-laptop)
+(color-theme-arjen)
 
 ; wrap text at 80 char
 (add-hook 'text-mode-hook 'auto-fill-mode)
@@ -109,6 +135,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(font-use-system-font t)
  '(org-agenda-files (quote ("~/Documents/work/TODO.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
