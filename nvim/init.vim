@@ -8,18 +8,20 @@ call plug#begin('~/.local/share/nvim/plugged')
 " General ------------------------------ 
 Plug 'vim-scripts/The-NERD-tree'
 Plug 'Reewr/vim-monokai-phoenix'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 Plug 'myusuf3/numbers.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/ctrlp.vim'
+Plug 'w0rp/ale'
 
 " Snippets ------------------------------
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
+Plug 'Valloric/YouCompleteMe'
 
 " Latex ------------------------------
 Plug 'lervag/vimtex'
@@ -56,10 +58,13 @@ let g:airline_theme='atomic'
 let maplocalleader = '\\'
 
 " Support python3
-let g:python_host_prog = '/usr/lib/python3.5'
+let g:python_host_prog = '/usr/bin/python3.5'
+let g:python_host_prog = '/usr/bin/python2.7'
+let g:ycm_python_binary_path = '/usr/bin/python3.5'
 
 " Window navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
