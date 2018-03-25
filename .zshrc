@@ -7,7 +7,14 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
- ZSH_THEME="robbyrussell"
+ZSH_THEME="duellj"
+
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -29,13 +36,13 @@
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
+# under VCS as dirty. This makes repository status check for larges (possibly with different paths/versions):  repositories
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
@@ -51,25 +58,14 @@
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+  git
+)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# load zgen
- source "${HOME}/.zgen/zgen.zsh"
-
-# if the init scipt doesn't exist
- if ! zgen saved; then
-	
-   # specify plugins here
-     zgen oh-my-zsh
-   #  zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train 
-     
-     # generate the init script from plugins above
-           zgen save
-           fi
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -97,36 +93,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias emacs="emacs -nw"
+alias ufetch="bash ~/Documents/clones/ufetch/ufetch-debian"
 
-export NVM_DIR="/home/max/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
-export PATH=$JAVA_HOME/bin:$PATH  
-
-# virtualenv and virtualenvwrapper
-export WORKON_HOME=/home/max/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+# export PATH=${PATH}:/home/max/.local/lib/python2.7/site-packages
+export PATH=$PATH:/usr/local/go/bin
 
 
-. /home/max/torch/install/bin/torch-activate
-
-#vim editing in zsh
-bindkey -v
-
-#bindkey '^P' up-history
-#bindkey '^N' down-history
-#bindkey '^?' backward-delete-char
-#bindkey '^h' backward-delete-char
-#bindkey '^w' backward-kill-word
-#bindkey '^r' history-incremental-search-backward
-
-#function zle-line-init zle-keymap-select {
-#    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-#    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $EPS1"
-#    zle reset-prompt
-#}
-#
-#zle -N zle-line-init
-#zle -N zle-keymap-select
-#export KEYTIMEOUT=1
+# added by Anaconda3 installer
+# export PATH="/home/max/anaconda3/bin:$PATH"
