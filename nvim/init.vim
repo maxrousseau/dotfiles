@@ -5,6 +5,9 @@ filetype off                  " required
 set colorcolumn=80 
 call plug#begin('~/.local/share/nvim/plugged')
 inoremap <LocalLeader><Space> <Esc>/<++><Enter>"_c4l
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+inoremap { {}<Esc>i
 
 " General ------------------------------ 
 Plug 'vim-scripts/The-NERD-tree'
@@ -23,7 +26,6 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
-" Plug 'Valloric/YouCompleteMe'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -37,14 +39,18 @@ let g:deoplete#enable_at_startup = 1
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/mathjax-support-for-mkdp'
-" Plug 'JamshedVesuna/vim-markdown-preview'
-Plug 'iamcco/markdown-preview.vim'
-Plug 'miyakogi/livemark.vim'
-" let vim_markdown_preview_hotkey='<C-m>' 
-" let vim_markdown_preview_browser='chromium'
-" let vim_markdown_preview_github=1
-let g:livemark_python = '/usr/bin/python3' " default 'python3'
-let g:livemark_browser = 'firefox'  "default: 'google-chrome'<Paste>
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    if has('nvim')
+      !cargo build --release
+    else
+      !cargo build --release --no-default-features --features json-rpc
+    endif
+  endif
+endfunction
+Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+let g:markdown_composer_browser = 'chromium'
+let g:markdown_composer_open_browser = 0
 
 	" snippets
 	autocmd Filetype markdown inoremap ;h1 #<Space>
@@ -74,7 +80,7 @@ syntax on
 let NERDTreeIgnore=['\.pyc$', '\~$'] 
 
 	"snippets
-	autocmd Filetype python inoremap ;d """<Return><Return>Description:<Return><++><Return><Return><Backspace>Args:<Return><++><Return><Return><Backspace>Return:<Return><++><Return><Return>"""<Esc>11ka
+	autocmd Filetype python inoremap ;d """<Return><++><Return><Return><++><Return><Return>Parameters<Return>----------<Return><++><space>:<space><++><Return><Return>Returns<Return>------<Return><++><space>:<space><++><Return>"""<Esc>12kA
 " C/C++ ------------------------------
 
 " R ------------------------------
@@ -99,7 +105,6 @@ set tw=79
 
 " Support python3
 let g:python_host_prog = '/usr/bin/python3'
-" let g:ycm_python_binary_path = '/usr/bin/python3'
 
 :tnoremap <Esc> <C-\><C-n>
 

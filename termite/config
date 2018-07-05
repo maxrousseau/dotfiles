@@ -3,7 +3,7 @@
 #audible_bell = false
 #clickable_url = true
 #dynamic_title = true
-font = Monospace 10
+font = Monospace 8
 #fullscreen = true
 #geometry = 640x480
 #icon_name = terminal
@@ -41,85 +41,85 @@ scrollback_lines = 10000
 [colors]
 # If both of these are unset, cursor falls back to the foreground color,
 # and cursor_foreground falls back to the background color.
-#cursor = #dcdccc
-#cursor_foreground = #dcdccc
+cursor = #dcdccc
+cursor_foreground = #dcdccc
 
-#foreground = #dcdccc
-#foreground_bold = #ffffff
-#background = #3f3f3f
+foreground = #dcdccc
+foreground_bold = #ffffff
+background = #3f3f3f
 
-# 20% background transparency (requires a compositor)
-# background = rgba(63, 63, 63, 0.8)
+ 20% background transparency (requires a compositor)
+ background = rgba(63, 63, 63, 0.8)
 
-# If unset, will reverse foreground and background
-#highlight = #2f2f2f
-#
-## Colors from color0 to color254 can be set
-#color0 = #3f3f3f
-#color1 = #705050
-#color2 = #60b48a
-#color3 = #dfaf8f
-#color4 = #506070
-#color5 = #dc8cc3
-#color6 = #8cd0d3
-#color7 = #dcdccc
-#color8 = #709080
-#color9 = #dca3a3
-#color10 = #c3bf9f
-#color11 = #f0dfaf
-#color12 = #94bff3
-#color13 = #ec93d3
-#color14 = #93e0e3
-#color15 = #ffffff
+ If unset, will reverse foreground and background
+highlight = #2f2f2f
+
+# Colors from color0 to color254 can be set
+color0 = #3f3f3f
+color1 = #705050
+color2 = #60b48a
+color3 = #dfaf8f
+color4 = #506070
+color5 = #dc8cc3
+color6 = #8cd0d3
+color7 = #dcdccc
+color8 = #709080
+color9 = #dca3a3
+color10 = #c3bf9f
+color11 = #f0dfaf
+color12 = #94bff3
+color13 = #ec93d3
+color14 = #93e0e3
+color15 = #ffffff
 
 [colors]
 # Base16 Isotope
 # Author: Jan T. Sott
 
-foreground      = #d0d0d0
-foreground_bold = #e0e0e0
-cursor          = #e0e0e0
-background      = #000000
-
-# 16 color space
-
-# Black, Gray, Silver, White
-color0  = #000000
-color8  = #808080
-color7  = #d0d0d0
-color15 = #ffffff
-
-# Red
-color1  = #ff0000
-color9  = #ff0000
-
-# Green
-color2  = #33ff00
-color10 = #33ff00
-
-# Yellow
-color3  = #ff0099
-color11 = #ff0099
-
-# Blue
-color4  = #0066ff
-color12 = #0066ff
-
-# Purple
-color5  = #cc00ff
-color13 = #cc00ff
-
-# Teal
-color6  = #00ffff
-color14 = #00ffff
-
-# Extra colors
-color16 = #ff9900
-color17 = #3300ff
-color18 = #404040
-color19 = #606060
-color20 = #c0c0c0
-color21 = #e0e0e0
+#foreground      = #d0d0d0
+#foreground_bold = #e0e0e0
+#cursor          = #e0e0e0
+#background      = #000000
+#
+## 16 color space
+#
+## Black, Gray, Silver, White
+#color0  = #000000
+#color8  = #808080
+#color7  = #d0d0d0
+#color15 = #ffffff
+#
+## Red
+#color1  = #ff0000
+#color9  = #ff0000
+#
+## Green
+#color2  = #33ff00
+#color10 = #33ff00
+#
+## Yellow
+#color3  = #ff0099
+#color11 = #ff0099
+#
+## Blue
+#color4  = #0066ff
+#color12 = #0066ff
+#
+## Purple
+#color5  = #cc00ff
+#color13 = #cc00ff
+#
+## Teal
+#color6  = #00ffff
+#color14 = #00ffff
+#
+## Extra colors
+#color16 = #ff9900
+#color17 = #3300ff
+#color18 = #404040
+#color19 = #606060
+#color20 = #c0c0c0
+#color21 = #e0e0e0
 
 [hints]
 #font = Monospace 12
