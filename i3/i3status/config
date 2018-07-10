@@ -9,6 +9,7 @@
 general {
         colors = true
         interval = 5
+	
 }
 
 order += "wireless _first_"

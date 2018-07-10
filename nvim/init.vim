@@ -8,6 +8,7 @@ inoremap <LocalLeader><Space> <Esc>/<++><Enter>"_c4l
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
 inoremap { {}<Esc>i
+set clipboard+=unnamedplus
 
 " General ------------------------------ 
 Plug 'vim-scripts/The-NERD-tree'
