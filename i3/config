@@ -65,22 +65,25 @@ set $base0E #b45bcf
 set $base0F #00f769
 
 # Basic bar configuration using the Base16 variables.
-bar {
-    status_command i3status
-    position top
-    colors {
-        background #000000
-        separator  $base01
-        statusline $base04
-
-        # State             Border  BG      Text
-        focused_workspace   $base05 $base0D $base00
-        active_workspace    $base05 $base03 $base00
-        inactive_workspace  $base03 $base01 $base05
-        urgent_workspace    $base08 $base08 $base00
-        binding_mode        $base00 $base0A $base00
-    }
-}
+#bar {
+#      status_command i3status
+# 
+#      #status_command python /home/max/.local/lib/python3.5/site-packages/powerline/bindings/i3/powerline-i3.py
+#      font pango: monospace 8 
+#      position top
+#      colors {
+#          background #000000
+#          separator  $base01
+#          statusline $base04
+#  
+#          # State             Border  BG      Text
+#          focused_workspace   $base05 $base0D $base00
+#          active_workspace    $base05 $base03 $base00
+#          inactive_workspace  $base03 $base01 $base05
+#          urgent_workspace    $base08 $base08 $base00
+#          binding_mode        $base00 $base0A $base00
+#      }
+#  }
 
 # Basic color configuration using the Base16 variables for windows and borders.
 # Property Name         Border  BG      Text    Indicator Child Border
@@ -230,20 +233,20 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# bar {
-#       font pango:monospace, FontAwesome 8
-#       position top
-#       status_command ~/Documents/clones/i3status-rust/target/release/i3status-rs ~/.config/i3/status.toml
-#       colors {
-#              separator #666666
-#              background #222222
-#              statusline #dddddd
-#              focused_workspace #0088CC #0088CC #ffffff
-#              active_workspace #333333 #333333 #ffffff
-#              inactive_workspace #333333 #333333 #888888
-#              urgent_workspace #2f343a #900000 #ffffff
-#       }
-# }
+ bar {
+       font pango:monospace, FontAwesome 8
+       position top
+       status_command ~/Documents/clones/i3status-rust/target/release/i3status-rs ~/.config/i3/status.toml
+       colors {
+              separator #666666
+              background #222222
+              statusline #dddddd
+              focused_workspace #0088CC #0088CC #ffffff
+              active_workspace #333333 #333333 #ffffff
+              inactive_workspace #333333 #333333 #888888
+              urgent_workspace #2f343a #900000 #ffffff
+       }
+ }
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -269,4 +272,7 @@ bindsym $mod+F2 exec bash ~/Documents/clones/dellips.sh
 bindsym $mod+F1 exec bash ~/Documents/clones/default_laptop.sh
 
 exec_always xmodmap ~/.Xmodmap 
+
+exec_always nitrogen ~/Pictures/wallpapers/010.png
+
 
