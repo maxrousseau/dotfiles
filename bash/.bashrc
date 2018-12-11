@@ -131,8 +131,6 @@ alias mybackup="rsync -av --timeout=60 --progress /home/max/Documents/work /medi
 alias dd="bash ~/.screenlayout/dual.sh"
 alias de="bash ~/.screenlayout/dellips.sh"
 alias dl="bash ~/.screenlayout/laptop.sh"
-
-
 # coding env
 alias ce="source activate rtest"
 alias py2v="source ~/Venv/venv2/bin/activate"
@@ -150,7 +148,7 @@ alias myvpn="~/Downloads/anyconnect-4.2.02075/vpn/vpnui"
 # suspend
 alias spd="systemctl suspend"
 
-# default editor
+# the only editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
@@ -159,3 +157,4 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
+. /home/max/anaconda3/etc/profile.d/conda.sh
