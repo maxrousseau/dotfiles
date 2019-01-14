@@ -1,0 +1,23 @@
+! fonts and size
+xterm*faceName: terminus
+xterm*faceSize: 11
+
+! copy paste
+xterm*VT100.Translations: #override\
+		Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+		Ctrl Shift <Key>C: copy-selection(CLIPBOARD)
+! enable colors
+*customization: -color
+xterm*termName: xterm-256color
+
+! Every shell is a login shell by default (for inclusion of all necessary environment variables)
+xterm*loginshell: true
+
+! some scrollback
+xterm*savelines: 1000
+
+! double-click to select whole URLs
+xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48)
+
+! allow alt to send meta key in emacs
+XTerm*metaSendsEscape: true

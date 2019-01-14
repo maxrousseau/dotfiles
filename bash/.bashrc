@@ -147,10 +147,18 @@ alias uf="bash ~/src/ufetch/ufetch-ubuntu"
 alias myvpn="~/Downloads/anyconnect-4.2.02075/vpn/vpnui"
 # suspend
 alias spd="systemctl suspend"
+# emacs in term
+alias em="emacs -nw"
 
 # the only editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
+
+# man pager set to less
+export MANPAGER=less
+
+# my custom ps1
+export PS1="\[\e[1;36m\]\u@\W\\[\e[0;31m\]::-> \[\e[0;37m\]"
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
