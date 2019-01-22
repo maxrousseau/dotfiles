@@ -1,14 +1,22 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+filetype off
 
-" set the runtime path to include Vundle and initialize
-set colorcolumn=80
 call plug#begin('~/.local/share/nvim/plugged')
+
+set colorcolumn=80 
+set clipboard+=unnamedplus
+set timeoutlen=200
+set cursorline
+set list
+set list listchars=nbsp:¬,tab:»·,trail:·,extends:>
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
 inoremap <LocalLeader><Space> <Esc>/<++><Enter>"_c4l
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
 inoremap { {}<Esc>i
-set clipboard+=unnamedplus
 
 " General ------------------------------
 Plug 'vim-scripts/The-NERD-tree'
@@ -20,13 +28,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/ctrlp.vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-speeddating'
-set list
-set list listchars=nbsp:¬,tab:»·,trail:·,extends:>
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-
-set background=dark
 
 " Snippets ------------------------------
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -41,7 +42,6 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/mathjax-support-for-mkdp'
-"
 	" snippets
 	autocmd Filetype markdown inoremap ;h1 #<Space>
 	autocmd Filetype markdown inoremap ;h2 ##<Space>
@@ -68,9 +68,8 @@ let python_highlight_all=1
 syntax on
 let NERDTreeIgnore=['\.pyc$', '\~$']
 
-	"snippets
+	"doc snippet
 	autocmd Filetype python inoremap ;d """<Return><++><Return><Return><++><Return><Return>Parameters<Return>----------<Return><++><space>:<space><++><Return><Return>Returns<Return>------<Return><++><space>:<space><++><Return>"""<Esc>12kA
-" C/C++ ------------------------------
 
 " R ------------------------------
 Plug 'jalvesaq/Nvim-R'
@@ -79,17 +78,13 @@ Plug 'jalvesaq/Nvim-R'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
-" Json ------------------------------
-
-" csv ------------------------------
-
-call plug#end()				" required
-filetype plugin indent on	" required
+call plug#end()            " required
+filetype plugin indent on    " required
 set laststatus=2
 
 "Colorscheme
 " colorscheme dracula
-let g:airline_theme='atomic'
+let g:airline_theme='angr'
 set tw=79
 
 " Window navigation
