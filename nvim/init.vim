@@ -1,16 +1,29 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+"             /\
+" /vvvvvvvvvvvv \--------------------------------------,
+" `^^^^^^^^^^^^ /====================================="
+"             \/
+"nvim config
+set nocompatible
+filetype off
 
-" set the runtime path to include Vundle and initialize
-set colorcolumn=80 
 call plug#begin('~/.local/share/nvim/plugged')
+
+set colorcolumn=80 
+set clipboard+=unnamedplus
+set timeoutlen=200
+set cursorline
+set list
+set list listchars=nbsp:¬,tab:»·,trail:·,extends:>
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
 inoremap <LocalLeader><Space> <Esc>/<++><Enter>"_c4l
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
 inoremap { {}<Esc>i
-set clipboard+=unnamedplus
 
-" General ------------------------------ 
+" General ------------------------------
 Plug 'vim-scripts/The-NERD-tree'
 Plug 'Reewr/vim-monokai-phoenix'
 Plug 'myusuf3/numbers.vim'
@@ -18,41 +31,27 @@ Plug 'flazz/vim-colorschemes'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/ctrlp.vim'
-Plug 'w0rp/ale'
-Plug 'jceb/vim-orgmode'
+"too slow
+"Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-speeddating'
+Plug 'neomake/neomake'
+"call neomake#configure#automake('w')
+let g:airline#extensions#neomake#enabled = 1
 
 " Snippets ------------------------------
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
+
+" Go ------------------------------------
+"bad nvim version
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Markdown ------------------------------
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/mathjax-support-for-mkdp'
-function! BuildComposer(info)
-  if a:info.status != 'unchanged' || a:info.force
-    if has('nvim')
-      !cargo build --release
-    else
-      !cargo build --release --no-default-features --features json-rpc
-    endif
-  endif
-endfunction
-Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-let g:markdown_composer_browser = 'chromium'
-let g:markdown_composer_open_browser = 0
-
 	" snippets
 	autocmd Filetype markdown inoremap ;h1 #<Space>
 	autocmd Filetype markdown inoremap ;h2 ##<Space>
@@ -67,22 +66,20 @@ let g:markdown_composer_open_browser = 0
 	autocmd filetype markdown inoremap ;s ```<Return><++><Return>```<Esc>2ka
 	autocmd filetype markdown inoremap ;a ![](<++>)<Esc>F[a
 	autocmd filetype markdown inoremap ;c <!---<Return><Return>---><Esc>kI
-	 
 
 " Latex ------------------------------
 Plug 'lervag/vimtex'
 
-" Python ------------------------------  
+" Python ------------------------------
 Plug 'vim-scripts/indentpython.vim'
 Plug 'nvie/vim-flake8'
 set encoding=utf-8
 let python_highlight_all=1
 syntax on
-let NERDTreeIgnore=['\.pyc$', '\~$'] 
+let NERDTreeIgnore=['\.pyc$', '\~$']
 
-	"snippets
+	"doc snippet
 	autocmd Filetype python inoremap ;d """<Return><++><Return><Return><++><Return><Return>Parameters<Return>----------<Return><++><space>:<space><++><Return><Return>Returns<Return>------<Return><++><space>:<space><++><Return>"""<Esc>12kA
-" C/C++ ------------------------------
 
 " R ------------------------------
 Plug 'jalvesaq/Nvim-R'
@@ -90,24 +87,15 @@ Plug 'jalvesaq/Nvim-R'
 " Git ------------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
- 
-" Json ------------------------------
-
-" csv ------------------------------
 
 call plug#end()            " required
 filetype plugin indent on    " required
 set laststatus=2
 
 "Colorscheme
-colorscheme monokai-phoenix
-let g:airline_theme='base16'
+"colorscheme dracula
+let g:airline_theme='angr'
 set tw=79
-
-" Support python3
-let g:python_host_prog = '/usr/bin/python3'
-
-:tnoremap <Esc> <C-\><C-n>
 
 " Window navigation
 nnoremap <C-J> <C-W><C-J>
