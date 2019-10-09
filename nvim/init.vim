@@ -37,12 +37,26 @@ Plug 'tpope/vim-speeddating'
 Plug 'neomake/neomake'
 "call neomake#configure#automake('w')
 let g:airline#extensions#neomake#enabled = 1
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
 " Snippets ------------------------------
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
+
+" CPP ------------------------------------
+Plug 'zchee/deoplete-clang'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/clang/'
+
 
 " Go ------------------------------------
 "bad nvim version
@@ -71,6 +85,7 @@ Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'lervag/vimtex'
 
 " Python ------------------------------
+Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'nvie/vim-flake8'
 set encoding=utf-8
@@ -93,8 +108,8 @@ filetype plugin indent on    " required
 set laststatus=2
 
 "Colorscheme
-"colorscheme dracula
-let g:airline_theme='angr'
+colorscheme dracula
+let g:airline_theme='base16'
 set tw=79
 
 " Window navigation
