@@ -30,6 +30,12 @@ Plug 'myusuf3/numbers.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='minimalist'
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 Plug 'kien/ctrlp.vim'
 "too slow
 "Plug 'vim-syntastic/syntastic'
@@ -85,6 +91,7 @@ Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'lervag/vimtex'
 
 " Python ------------------------------
+let g:python3_host_prog = '/usr/local/bin/python3.8'
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'nvie/vim-flake8'
@@ -103,14 +110,19 @@ Plug 'jalvesaq/Nvim-R'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
+" Txt -----------------------------
+" anki optimizations
+autocmd Filetype text set tw=0
+autocmd Filetype text nnoremap <buffer> ;n oQ:<space><++>,<space>A:<space><++><Esc>I
+autocmd Filetype text nnoremap <buffer> ;t oT/F:<space><++>,<space>A:<space><++><Esc>I
+autocmd Filetype text nnoremap <buffer> ;m oQ:<space><++><space>\na)<space><++><space>\nb)<space><++><space>\nc)<space><++><space>\nd)<space><++><space>,<space><++><Esc>I
+
 call plug#end()            " required
 filetype plugin indent on    " required
 set laststatus=2
 
 "Colorscheme
-colorscheme dracula
-let g:airline_theme='base16'
-set tw=79
+colorscheme Monokai
 
 " Window navigation
 nnoremap <C-J> <C-W><C-J>

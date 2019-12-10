@@ -83,7 +83,7 @@ filetype plugin indent on    " required
 set laststatus=2
 
 "Colorscheme
-" colorscheme dracula
+colorscheme dracula
 let g:airline_theme='angr'
 set tw=79
 

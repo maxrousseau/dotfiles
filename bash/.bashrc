@@ -92,6 +92,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias cl='clear'
+alias nvim='~/src/neovim-0.4.3/squashfs-root/usr/bin/nvim'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -117,38 +118,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# added by Anaconda3 installer
-export PATH="/home/max/Downloads/yes/bin:$PATH"
-export GOPATH="$HOME/go"
-
-# added by Anaconda3 installer
-export PATH="/home/max/anaconda3/bin:$PATH"
-
 # backup alias
-alias mybackup="rsync -av --timeout=60 --progress /home/max/Documents/work /media/max/Seagate\ Backup\ Plus\ Drive/zenbook"
-
-# display script
-alias dd="bash ~/.screenlayout/dual.sh"
-alias de="bash ~/.screenlayout/dellips.sh"
-alias dl="bash ~/.screenlayout/laptop.sh"
-# coding env
-alias ce="source activate rtest"
-alias py2v="source ~/Venv/venv2/bin/activate"
-alias cje="source activate ojava"
-# screenshot
-alias scr="gnome-screenshot --interactive"
-# caps to esc
-alias k="bash ~/caps"
-# set brightness
-alias sb="xrandr --output eDP-1-1 --brightness"
-# ufetch
-alias uf="bash ~/src/ufetch/ufetch-ubuntu"
-# vpn
-alias myvpn="~/Downloads/anyconnect-4.2.02075/vpn/vpnui"
-# suspend
-alias spd="systemctl suspend"
-# emacs in term
-alias em="emacs -nw"
+# alias mybackup="rsync -av --timeout=60 --progress /home/max/Documents/work /media/max/Seagate\ Backup\ Plus\ Drive/zenbook"
 
 # the only editor
 export VISUAL=vim
@@ -160,9 +131,11 @@ export MANPAGER=less
 # my custom ps1
 export PS1="\[\e[1;36m\]\u@\W\\[\e[0;31m\]::-> \[\e[0;37m\]"
 
+# remove directory 0+w highlight
+export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
+
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
-. /home/max/anaconda3/etc/profile.d/conda.sh
