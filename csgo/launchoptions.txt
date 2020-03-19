@@ -1,0 +1,1 @@
+-novid -maxplayers_override 50 -nojoy -nod3d9ex -threads 8 -high -noaafonts -tickrate 128 -console -console +exec autoexec

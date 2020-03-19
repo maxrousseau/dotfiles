@@ -134,6 +134,12 @@ export PS1="\[\e[1;36m\]\u@\W\\[\e[0;31m\]::-> \[\e[0;37m\]"
 # remove directory 0+w highlight
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 
+# diable ctrl-s
+stty stop ''
+stty start ''
+stty -ixon
+stty -ixoff
+
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
