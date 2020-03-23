@@ -8,7 +8,7 @@ filetype off
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-set colorcolumn=80 
+set colorcolumn=80
 set clipboard+=unnamedplus
 set timeoutlen=200
 set cursorline
@@ -43,7 +43,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'neomake/neomake'
 "call neomake#configure#automake('w')
-let g:airline#extensions#neomake#enabled = 1
+let g:airline#extensions#neomake#enabled = 12
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -102,7 +102,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'lervag/vimtex'
 
 " Python ------------------------------
-let g:python3_host_prog = 'C:\Python38\python.exe'
+let g:python3_host_prog = '/home/linuxbrew/.linuxbrew/bin/python3'
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'nvie/vim-flake8'
