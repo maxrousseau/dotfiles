@@ -7,7 +7,7 @@ Configuration files that are actively maintained:
 - [bash](./bash/.bashrc)
 - [tmux](./tmux/.tmux.conf)
 - [neovim](./nvim/init.vim)
-- [xterm](./xterm/.Xressources)
+- [xterm](./xterm/.Xresources)
 
 Vim Plugins
 -----------
