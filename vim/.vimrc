@@ -15,7 +15,7 @@ set clipboard+=unnamedplus
 set timeoutlen=200
 set cursorline
 set list
-set list listchars=nbsp:¬,tab:»·,trail:·,extends:>
+set list listchars=nbsp:¬,tab:··,trail:·,extends:>
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
