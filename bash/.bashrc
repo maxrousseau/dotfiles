@@ -93,6 +93,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias cl='clear'
 alias nvim='~/src/neovim-0.4.3/squashfs-root/usr/bin/nvim'
+alias vi='vim'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -140,8 +141,5 @@ stty start ''
 stty -ixon
 stty -ixoff
 
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
+# homebrew paths
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
