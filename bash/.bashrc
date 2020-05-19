@@ -1,7 +1,6 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -87,13 +86,22 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
+# some aliases
+#----------------------------------------
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias cl='clear'
 alias nvim='~/src/neovim-0.4.3/squashfs-root/usr/bin/nvim'
 alias vi='vim'
+alias vf='vim $(fzf)'
+alias zf='zathura $(fzf)'
+alias t='tmux'
+alias tl='tmux list-session'
+alias ta='tmux attach -t'
+alias tk='tmux kill-session -t'
+# backup alias
+# alias mybackup="rsync -av --timeout=60 --progress /home/max/Documents/work /media/max/Seagate\ Backup\ Plus\ Drive/zenbook"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -119,8 +127,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# backup alias
-# alias mybackup="rsync -av --timeout=60 --progress /home/max/Documents/work /media/max/Seagate\ Backup\ Plus\ Drive/zenbook"
 
 # the only editor
 export VISUAL=vim
@@ -130,7 +136,7 @@ export EDITOR="$VISUAL"
 export MANPAGER=less
 
 # my custom ps1
-export PS1="\[\e[1;36m\]\u@\W\\[\e[0;31m\]::-> \[\e[0;37m\]"
+export PS1="\[\e[1;36m\]\u@\W\\[\e[0;31m\] +> \[\e[0;37m\]"
 
 # remove directory 0+w highlight
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
@@ -143,3 +149,8 @@ stty -ixoff
 
 # homebrew paths
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+# virtualenv
+export VIRTUALENVWRAPPER_PYTHON=/home/linuxbrew/.linuxbrew/bin/python3
+export WORKON_HOME=$HOME/.envs
+source /home/linuxbrew/.linuxbrew/bin/virtualenvwrapper.sh

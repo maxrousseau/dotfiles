@@ -1,122 +1,95 @@
-#*****************************************************************************
-#
-# SHELL CONFIGURATION
-#
-# *****************************************************************************
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# TODO:
+#	1. put aliases and functions in separate files
+#	2. see fzf for useful functions
 
-# Path to your oh-my-zsh installation.
-  export ZSH=/home/max/.oh-my-zsh
+# Enable colors and change prompt:
+autoload -U colors && colors	# Load colors
+PS1='%F{blue}%B%1~%b%f %F{red}+>%f '
+RPS1='[%F{yellow}%?%f%F{white}:%f%F{green}%@%f]'
+setopt autocd		# Automatically cd into typed directory.
+stty stop undef		# Disable ctrl-s to freeze terminal.
 
-# THEME
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="dogenpunk"
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# History in cache directory:
+HISTSIZE=1000
+SAVEHIST=1000
+HISTFILE=~/.cache/zsh/history
 
-# TEXT  
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# functions
+#----------------------------------------
+# vf - fuzzy open with vim from anywhere
+# ex: vf word1 word2 ... (even part of a file name)
+# zsh autoload function
+vf() {
+  local files
+  files=(${(f)"$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1 -m)"})
+  if [[ -n $files ]]
+  then
+    vim -- $files
+    print -l $files[1]
+  fi
+}
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# aliases
+#----------------------------------------
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias cl='clear'
+alias nvim='~/src/neovim-0.4.3/squashfs-root/usr/bin/nvim'
+alias vi='vim'
+#alias vf='vim $(fzf)'
+alias zf='zathura $(fzf)'
+alias t='tmux'
+alias tl='tmux list-session'
+alias ta='tmux attach -t'
+alias tk='tmux kill-session -t'
+# backup alias
+# alias mybackup="rsync -av --timeout=60 --progress /home/max/Documents/work \
+# /media/max/Seagate\ Backup\ Plus\ Drive/zenbook"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)		# Include hidden files.
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# History in insert mode
+bindkey -M viins '^p' up-history
 
-# Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# keybinds
+#----------------------------------------
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# defaults
+#----------------------------------------
+export VISUAL=vim
+export EDITOR="$VISUAL"
+export MANPAGER=less
+export XDG_CONFIG_DIR="$HOME/.config/"
 
-# SCM
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for larges (possibly with different paths/versions):  repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+# development environment
+#----------------------------------------
+# homebrew paths
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# virtualenv
+export VIRTUALENVWRAPPER_PYTHON=/home/linuxbrew/.linuxbrew/bin/python3
+export WORKON_HOME=$HOME/.envs
+source /home/linuxbrew/.linuxbrew/bin/virtualenvwrapper.sh
+export PATH="$HOME/.cargo/bin:$PATH"
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# USER
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# FLAGS
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# SSH
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# ALIAS
-#
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-alias briss="java -jar ~/Downloads/briss-0.9/briss-0.9.jar --no-hup"
-alias emacs="emacs -nw"
-alias ufetch="bash ~/Documents/clones/ufetch/ufetch-debian"
-alias cvenv="source ~/Venv/pycv3_venv/bin/activate"
-alias uvenv2="source ~/upload_venv/bin/activate"
-alias gvenv="source ~/Venv/general3_venv/bin/activate"
-alias mybackup="rsync -av --timeout=60 --progress /home/max/Documents /media/max/Seagate\ Backup\ Plus\ Drive/tpd-x220 && rsync -av --timeout=60 --progress /home/max/Projects /media/max/Seagate\ Backup\ Plus\ Drive/tpd-x220 && rsync -av --timeout=60 --progress /home/max/Books /media/max/Seagate\ Backup\ Plus\ Drive/tpd-x220 && rsync -av --timeout=60 --progress /home/max/Bib /media/max/Seagate\ Backup\ Plus\ Drive/tpd-x220"
-# alias maxbackup="rsync -av --timeout=60 --progress /home/max /media/max/Seagate\ Backup\ Plus\ Drive/tpd-x220"
-
-
-# PATH
-export PATH=${PATH}:/home/max/.local/lib/python2.7/site-packages
-export PATH=${PATH}:/home/max/.local/lib/python3.5/site-packages
-export PATH=$PATH:/usr/local/go/bin
-# added by Anaconda3 installer
-# export PATH="/home/max/anaconda3/bin:$PATH"
+# Load syntax highlighting; should be last
+# source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
