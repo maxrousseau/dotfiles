@@ -1,0 +1,7 @@
+* Emacs setup
+
+to use this configuration you must have:
+
+- emacs use-package [[https://github.com/jwiegley/use-package][repo]]
+- python3
+	- jedi, rope, black, flake8, pytest, virtualenv, virtualenvwrapper, pyvenv
