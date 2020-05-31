@@ -1,4 +1,4 @@
-fzf* packages
+* packages
 ** setup repositories
 #+BEGIN_SRC emacs-lisp
 (require 'package)
@@ -137,4 +137,14 @@ to enable lazy loading.
 (setq elpy-rpc-virtualenv-path 'current)
 (setq elpy-rpc-python-command "python3")
 (setq elpy-interactive-python-command "python3")
+#+END_SRC
+* R
+** ESS
+
+powerful emacs speaks statistics package
+#+BEGIN_SRC emacs-lisp
+(use-package ess
+ :ensure t
+ :defer t
+ :init (require 'ess-site))
 #+END_SRC
