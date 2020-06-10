@@ -20,7 +20,7 @@ There are two things you can do about this warning:
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 (setq package-check-signature 'allow-unsigned)
-#+END_SRC
+#+End_SRC
 ** use-package setup
 
 the use package way of installing and using packages for emacs
@@ -41,7 +41,7 @@ the use package way of installing and using packages for emacs
 (use-package base16-theme
   :ensure t
   :config
-  (load-theme 'base16-espresso t))
+  (load-theme 'base16-gruvbox-light-medium t))
 #+END_SRC
 ** TODO statusbar
 
@@ -73,48 +73,109 @@ toggle with keybinding C-= l
 #+END_SRC
 
 ** TODO startup prompt
-* buffers
-** TODO fzf
-works only if emacs is started from terminal??
-find alternative
+* TODO backup
+
+Place backup files in a specific folder. This was copy-pasted.
+Should be rewritten and customized.
 
 #+BEGIN_SRC emacs-lisp
-(use-package fzf
-  :ensure t
-  :init)
-#+End_SRC
+;;Put backup files neatly away
+(let ((backup-dir "~/.emacs.d/Emacs/backups")
+      (auto-saves-dir "~/.emacs.d/Emacs/autosavedir/")
+      )
+  (dolist (dir (list backup-dir auto-saves-dir))
+    (when (not (file-directory-p dir))
+      (make-directory dir t)))
+  (setq backup-directory-alist `(("." . ,backup-dir))
+        auto-save-file-name-transforms `((".*" ,auto-saves-dir))
+        auto-save-list-file-prefix (concat auto-saves-dir ".saves-")
+        tramp-backup-directory-alist `((".*" . ,backup-dir))
+        tramp-auto-save-directory auto-saves-dir
+        )
+  )
+(setq backup-by-copying t    ; Don't delink hardlinks
+      delete-old-versions t  ; Clean up the backups
+      version-control t      ; Use version numbers on backups,
+      kept-new-versions 3    ; keep some new versions
+      kept-old-versions 2)   ; and some old ones, too
+#+END_SRC
+
+* TODO buffers
+
+Using helm to manage buffers easily.
+- [ ] buffer menu
+- [ ] bookmark files
+- [ ] finding files
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm
+	:ensure t
+	:defer t
+	:bind (("C-; f" . helm-find-files)
+		  ("C-; b" . helm-buffers-list)
+		  ("C-; m" . helm-bookmarks)
+		  ("C-; x" . helm-M-x)
+		  ("C-; y" . helm-show-kill-ring))
+	:init
+	(require 'helm-config))
+#+END_SRC
+
 * editing
+** TODO easy-edit
+
+customized mode for editing based on simplicity
+
+** TODO easy-mvt
+
+fast movement adapted to the file type and their regions of interest (ROI)
+
+org -> headers or other ROI (code block, links, etc.)
+python -> class, methods, import block
+R -> functions
+
 ** indentation
 
-indent with of four and use tab to allow indentation
+Indent with of four and use tab to allow indentation
 use M-i to insert tab
 
 #+BEGIN_SRC emacs-lisp
 (setq-default tab-width 4
 	indent-tabs-mode t)
 #+END_SRC
+
 ** 80 column rule
 
-will highlight text in red if goes past 80 characters
+Will highlight text in red if goes past 80 characters.
+(does not work on startup ...)
 
 #+BEGIN_SRC emacs-lisp
 (use-package column-enforce-mode
   :ensure t
   :init)
-(global-column-enforce-mode)
+(setq-default global-column-enforce-mode t)
 #+END_SRC
 
 ** TODO autrowrap 80
 
-somehow is not enabled on startup
+still not working well
 
-#+BEGIN_SRC emacs_lisp
+#+BEGIN_SRC emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'prog-mode-hook 'turn-on-auto-fill)
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 (setq-default fill-column 80)
+(setq auto-fill-mode t)
 #+END_SRC
+
 * dired
+
+- [ ] navigation without creating new buffers
+- [ ] opening files with xdg-open
+
+#+BEGIN_SRC emacs-lisp
+(setq dired-listing-switches "-al --group-directories-first")
+#+END_SRC
+
 * git
 
 #+BEGIN_SRC emacs-lisp
@@ -141,10 +202,10 @@ to enable lazy loading.
 * R
 ** ESS
 
-powerful emacs speaks statistics package
+Powerful emacs speaks statistics package
+
 #+BEGIN_SRC emacs-lisp
 (use-package ess
  :ensure t
- :defer t
  :init (require 'ess-site))
 #+END_SRC
