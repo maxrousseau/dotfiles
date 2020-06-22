@@ -60,7 +60,7 @@ disable all GUI bars
 
 ** font 
 #+BEGIN_SRC emacs-lisp
-(set-frame-font "hack 10" nil t)
+(set-frame-font "Hack 10" nil t)
 #+END_SRC
 
 ** line numbers
@@ -73,7 +73,11 @@ toggle with keybinding C-= l
 #+END_SRC
 
 ** TODO startup prompt
-* TODO backup
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-screen t)
+#+END_SRC
+
+* backup
 
 Place backup files in a specific folder. This was copy-pasted.
 Should be rewritten and customized.
@@ -100,12 +104,12 @@ Should be rewritten and customized.
       kept-old-versions 2)   ; and some old ones, too
 #+END_SRC
 
-* TODO buffers
+* buffers
 
 Using helm to manage buffers easily.
-- [ ] buffer menu
-- [ ] bookmark files
-- [ ] finding files
+- buffer menu
+- bookmark files
+- finding files
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm
@@ -119,20 +123,24 @@ Using helm to manage buffers easily.
 	:init
 	(require 'helm-config))
 #+END_SRC
-
 * editing
-** TODO easy-edit
+** TODO mr-editing
 
 customized mode for editing based on simplicity
-
-** TODO easy-mvt
-
 fast movement adapted to the file type and their regions of interest (ROI)
-
 org -> headers or other ROI (code block, links, etc.)
 python -> class, methods, import block
-R -> functions
+R -> funtions
 
+Currently implemented:
+- C-[ d delete word under cursor
+- C-[ D delete line under cursor
+- M-n next paragraph
+- M-p previous paragraph
+
+#+BEGIN_SRC emacs-lisp
+;; (load "~/.emacs.d/mr-editing.el")
+#+END_SRC
 ** indentation
 
 Indent with of four and use tab to allow indentation
@@ -184,9 +192,21 @@ still not working well
   :init)
 #+END_SRC
 
+* elfeed
+
+- [ ]  Redo setup with use-package
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-; w") 'elfeed)
+(setq elfeed-feeds
+      '(("https://openai.com/blog/rss/" tech)
+	  ("http://feeds.feedburner.com/RBloggers?format=xml" tech)))
+(setf url-queue-timeout 30)
+#+END_SRC
+
 * python
 
-elpy package setup with use-package, using defer t
+Elpy package setup with use-package, using defer t
 to enable lazy loading.
 
 #+BEGIN_SRC emacs-lisp
@@ -199,6 +219,7 @@ to enable lazy loading.
 (setq elpy-rpc-python-command "python3")
 (setq elpy-interactive-python-command "python3")
 #+END_SRC
+
 * R
 ** ESS
 
@@ -208,4 +229,26 @@ Powerful emacs speaks statistics package
 (use-package ess
  :ensure t
  :init (require 'ess-site))
+#+END_SRC
+
+* yasnippets
+
+Enable yasnippets for all modes
+
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :init
+    (yas-global-mode 1))
+#+END_SRC
+
+* flycheck
+
+Syntax checking for all modes
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :ensure t
+  :init
+    (global-flycheck-mode t))
 #+END_SRC
