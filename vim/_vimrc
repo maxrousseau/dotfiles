@@ -11,126 +11,50 @@ filetype off
 
 " set the runtime path to include Vundle and initialize
 set colorcolumn=80
-call plug#begin('~/.local/share/nvim/plugged')
+
 inoremap <LocalLeader><Space> <Esc>/<++><Enter>"_c4l
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
 inoremap { {}<Esc>i
+
 " font
 set guifont=terminus:h11:cANSI
+
 " remove annoying sound and flash
 set noeb vb t_vb=
 au GUIEnter * set vb t_vb=
+
 " fixes backspace in insert mode
 set backspace=indent,eol,start
+
 " remove toolbar, scrollbar and menubars
 set guioptions-=L
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
 
-" Movement --------------------------------------------------------------------
-
-" General ---------------------------------------------------------------------
-Plug 'vim-scripts/The-NERD-tree'
-Plug 'Reewr/vim-monokai-phoenix'
-Plug 'myusuf3/numbers.vim'
-Plug 'flazz/vim-colorschemes'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'kien/ctrlp.vim'
-Plug 'vim-syntastic/syntastic'
-Plug 'tpope/vim-speeddating'
-Plug 'mhinz/vim-startify'
+" some settings
 set list
 set list listchars=tab:>-,trail:-
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
-
 set background=dark
-
-" Snippets --------------------------------------------------------------------
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
-Plug 'honza/vim-snippets'
-
-" Go ------------------------------------
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-" Markdown ------------------------------
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'iamcco/mathjax-support-for-mkdp'
-"
-	" snippets
-	autocmd Filetype markdown inoremap ;h1 #<Space>
-	autocmd Filetype markdown inoremap ;h2 ##<Space>
-	autocmd Filetype markdown inoremap ;h3 ###<Space>
-	autocmd Filetype markdown inoremap ;h4 ####<Space>
-	autocmd Filetype markdown inoremap ;b ****<Esc>hi
-	autocmd Filetype markdown inoremap ;i ____<Esc>hi
-	autocmd filetype markdown inoremap ;l -<space>
-	autocmd filetype markdown inoremap ;n 1.<space>
-	autocmd filetype markdown inoremap ;h [](https://www.<++>)<Esc>F[a
-	autocmd filetype markdown inoremap ;f [](../<++>)<Esc>F[a
-	autocmd filetype markdown inoremap ;s ```<Return><++><Return>```<Esc>2ka
-	autocmd filetype markdown inoremap ;a ![](<++>)<Esc>F[a
-	autocmd filetype markdown inoremap ;c <!---<Return><Return>---><Esc>kI
-
-" Latex ------------------------------
-Plug 'lervag/vimtex'
-
-" Python ----------------------------------------------------------------------
-Plug 'vim-scripts/indentpython.vim'
-Plug 'nvie/vim-flake8'
 set encoding=utf-8
-let python_highlight_all=1
 syntax on
-let NERDTreeIgnore=['\.pyc$', '\~$']
-" add python 3 support to vim
-let pythonthreedll="C:\Program Files\Python 3.5\python35.dll"
-
-	"snippets
-	autocmd Filetype python inoremap ;d """<Return><++><Return><Return><++><Return><Return>Parameters<Return>----------<Return><++><space>:<space><++><Return><Return>Returns<Return>------<Return><++><space>:<space><++><Return>"""<Esc>12kA
-" run tests
-" run file
-
-" C/C++ -----------------------------------------------------------------------
-" make
-	autocmd filetype cpp nnoremap ;m :make<Return>
-	autocmd filetype c nnoremap ;m :make<Return>
-" clean
-	autocmd filetype cpp nnoremap ;c :!make<space>clean<Return>
-	autocmd filetype c nnoremap ;c :!make<space>clean<Return>
-" run .exe
-
-" R ------------------------------
-Plug 'jalvesaq/Nvim-R'
-
-" Git ------------------------------
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-
-" Json ------------------------------
-
-" csv ------------------------------
-
-call plug#end()				" required
-filetype plugin indent on	" required
 set laststatus=2
-
-"Colorscheme
-colorscheme dracula
-let g:dracula_italic=0
-let g:airline_theme='base16'
 set tw=79
+colorscheme evening
+
+" setup for pludings
+filetype plugin indent on	" required
+
+" python
+let python_highlight_all=1
+let pythonthreedll="C:\Program Files\Python 3.5\python35.dll"
 
 " Window navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-
