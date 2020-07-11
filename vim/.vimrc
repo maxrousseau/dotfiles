@@ -1,7 +1,7 @@
-" Vimrc
+" vimrc
 " Maxime Rousseau
-" 11-Mai-2020
-" ***********
+" 26-06-2020
+" **********
 
 " General
 " -------
@@ -18,7 +18,6 @@ set colorcolumn=80
 highlight ColorColumn ctermbg=8 guibg=lightgrey
 set clipboard+=unnamedplus
 set timeoutlen=200
-set cursorlineopt=number
 set list
 set list listchars=nbsp:¬,tab:··,trail:·,extends:>
 set shiftwidth=4
@@ -38,6 +37,17 @@ let maplocalleader = ";"
 " Insert tags
 nnoremap <LocalLeader><Space> <Esc>/<++><Enter>d4li
 
+" Plugin Manager
+" --------------
+" handles installation
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+" setup
+call plug#begin('~/.vim/plugged')
+
 " Markdown
 " --------
 " settings:
@@ -49,34 +59,35 @@ let g:markdown_folding = 1
 
 " Buffers
 " -------
-" mappings
-" > ;o open browser
-" > ;n go to next buffer
-" TODO: cmd to load all files in a directory
-"		use buffers menu to select file without :cmd
-nnoremap <silent> <LocalLeader>o :e .<CR>
-nnoremap <silent> <LocalLeader>n :bnext<CR>
-nnoremap <silent> <LocalLeader>k :bprevious<CR>
-nnoremap <silent> <LocalLeader>l :buffers<CR>
+" TODO: setup fzf OK, ripgrep for easy file/buffer navigation
+" >>> get fzf 'Files' to find dotfiles
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+nnoremap <LocalLeader>b :Buffers<Enter>
+nnoremap <LocalLeader>f :Files<Enter>
 
-" Snippets
-" --------
-" type the abbreviation followed the press <space>
-" TODO: setup snippets folder
-autocmd FileType python
-	\ iabbrev def def<++>(<++>):<Esc>0;<space>
+" Git
+" ---
+" TODO: vim fugitive
 
 " Movement
 " --------
-" > ;s search word under cursor
-nnoremap <silent> <LocalLeader>s /<c-r>=expand("<cword>")<CR><CR>
+" TODO: vim-snipe or vim-sneak and multiline editing linum-relative
 
-" Docs
-" TODO: lookup python docs
+" Appearance
+" ----------
+" TODO: statusbar and base-16 color
+
+" Snippets
+" --------
+" TODO: setup ultisnip
 
 " Window navigation
 " -----------------
+" Sane shortcuts for pane switching
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+call plug#end()
