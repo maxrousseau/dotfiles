@@ -1,3 +1,96 @@
+* Overview 
+** Elisp
+
+Ressource: [[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][introduction to elisp]]
+
+** TODO Customization
+Simplified custom essentials for increased efficiency of text file editing.
+- C-; (prefix for custom commands)
+  
+Additional packages
+
+Essentials:
+1. multi-line editing
+2. eshell (learn more, efficiency
+
+Misc:
+- Major mode for scientific publication search, bib and paper download
+  (look at behavior similar to rss feed reader: list of articles above,
+  display article abstract + bibtex in window below)
+- Backup manager
+
+*** TODO Packages
+- Ido
+- ace-window
+- ace-jump
+- projectile
+
+** Cheat Sheet
+*** Navigation
+
+-n down
+-p up
+-f forward
+-b backwards
+-f forward word
+-b backward word
+-a beginning line
+-e end line
+-a beginning sentence/paragraph
+-e end sentence/paragraph
+-< top of buffer
+-> end of buffer
+
+*** Deletion:
+
+-d delete char forward
+EL delete char backward
+-d delete word forward
+-DEL delete word backward
+-k delete to end of line
+-S-DEL delete line
+-SPC set mark
+-w delete + copy selection
+-w copy selection
+-y paste (yank)
+
+*** Insertion
+ substitute word
+ substitute in selection
+ substitute in file
+
+*** Misc
+-/ undo
+-l center/top cursor to screen
+-r toggle cursor top middle bottom screen
+
+*** Dired
+C-x d open dired from input directory
+ d to mark as delete
+ x to execute action
+
+*** Orgmode
+-RET new header same level
+-S-RET new header TODO same level
+
+or lists:
+-c C-c toggle checkbox
+
+*** Search
+-s i-search
+-M-s regxp search
+-% search + replace
+-S-% search + replace regexp
+
+*** Magit
+M-x magit to open the menu
+- s to stage changes (<shift> for all)
+  - Tab to inspect items
+  - RET to got to files
+- c to commit changes
+  - write message then C-c C-c to exit
+- p to push changes
+
 * packages
 ** setup repositories
 #+BEGIN_SRC emacs-lisp
