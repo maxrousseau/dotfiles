@@ -11,7 +11,7 @@ Additional packages
 
 Essentials:
 1. multi-line editing
-2. eshell (learn more, efficiency
+2. eshell (learn more, efficiency, and configuration)
 
 Misc:
 - Major mode for scientific publication search, bib and paper download

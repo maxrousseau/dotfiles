@@ -100,6 +100,7 @@ alias t='tmux'
 alias tl='tmux list-session'
 alias ta='tmux attach -t'
 alias tk='tmux kill-session -t'
+alias xterm_reload='xrdb -merge ~/.Xresources'
 # backup alias
 # alias mybackup="rsync -av --timeout=60 --progress /home/max/Documents/work /media/max/Seagate\ Backup\ Plus\ Drive/zenbook"
 
@@ -147,10 +148,8 @@ stty start ''
 stty -ixon
 stty -ixoff
 
-# homebrew paths
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 # virtualenv
-export VIRTUALENVWRAPPER_PYTHON=/home/linuxbrew/.linuxbrew/bin/python3
-export WORKON_HOME=$HOME/.envs
-source /home/linuxbrew/.linuxbrew/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=$HOME/.virtualenvs
+source $HOME/.local/bin/virtualenvwrapper.sh

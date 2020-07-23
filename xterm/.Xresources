@@ -1,6 +1,6 @@
 ! fonts and size
 xterm*faceName: terminus
-xterm*faceSize: 11
+xterm*faceSize: 10
 
 ! copy paste
 xterm*VT100.Translations: #override\
