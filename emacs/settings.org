@@ -8,10 +8,24 @@ Simplified custom essentials for increased efficiency of text file editing.
 - C-; (prefix for custom commands)
   
 Additional packages
+- Projectile (project management)
+- Company (autocomplete)
+- Yasnippets (duh)
+- Flycheck
+- Dash (for documentations)
+- Man (man pages, do I have this already?)
+- Tags (code navigations)
+- Snipe (bc evil is not really emacs-y...)
+- Gud (debugging)
+- Which-key (keybindings cheatsheet)
 
 Essentials:
-1. multi-line editing
+1. multi-line editing (http://ergoemacs.org/emacs/emacs_string-rectangle_ascii-art.html)
 2. eshell (learn more, efficiency, and configuration)
+   - aliases
+   - prompt customization
+   - shortcuts
+   - integration with dired (for improved movement and file management)
 
 Misc:
 - Major mode for scientific publication search, bib and paper download
@@ -91,7 +105,7 @@ M-x magit to open the menu
   - write message then C-c C-c to exit
 - p to push changes
 
-* packages
+* packages setup
 ** setup repositories
 #+BEGIN_SRC emacs-lisp
 (require 'package)
@@ -137,6 +151,8 @@ the use package way of installing and using packages for emacs
   (load-theme 'base16-espresso t))
 #+END_SRC
 ** TODO statusbar
+   
+This status line is not great, improve on clarity of information displayed.
 
 #+BEGIN_SRC emacs-lisp
 (display-time-mode 1)
@@ -219,7 +235,7 @@ Using helm to manage buffers easily.
 * editing
 ** TODO mr-editing
 
-TO BE REMOVED, REPLACED BY EVIL-MODE
+TO BE REMOVED, REPLACED BY EVIL-MODE, WHICH WILL ALSO BE REPLACED
 
 customized mode for editing based on simplicity
 fast movement adapted to the file type and their regions of interest (ROI)
@@ -234,25 +250,29 @@ Currently implemented:
 - M-p previous paragraph
 
 #+BEGIN_SRC emacs-lisp
+;; bindings for easier paragraph movement
+;; TODO fix the fact that the meta key needs to be pressed multiple times to be activated
+(global-set-key (kbd "M-p") 'backward-paragraph)
+(global-set-key (kbd "M-n") 'forward-paragraph)
 ;; (load "~/.emacs.d/mr-editing.el")
 #+END_SRC
 
 ** evil mode
 #+BEGIN_SRC emacs-lisp
-(use-package evil
-  :ensure t ;; install the evil package if not installed
-  :init ;; tweak evil's configuration before loading it
-  (setq evil-search-module 'evil-search)
-  (setq evil-ex-complete-emacs-commands nil)
-  (setq evil-vsplit-window-right t)
-  (setq evil-split-window-below t)
-  (setq evil-shift-round nil)
-  (setq evil-want-C-u-scroll t)
-  :config ;; tweak evil after loading it
-  (evil-mode)
-
-  ;; example how to map a command in normal mode (called 'normal state' in evil)
-  (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
+;;(use-package evil
+;;  :ensure t ;; install the evil package if not installed
+;;  :init ;; tweak evil's configuration before loading it
+;;  (setq evil-search-module 'evil-search)
+;;  (setq evil-ex-complete-emacs-commands nil)
+;;  (setq evil-vsplit-window-right t)
+;;  (setq evil-split-window-below t)
+;;  (setq evil-shift-round nil)
+;;  (setq evil-want-C-u-scroll t)
+;;  :config ;; tweak evil after loading it
+;;  (evil-mode)
+;;
+;;  ;; example how to map a command in normal mode (called 'normal state' in evil)
+;;  (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
 #+END_SRC
 
 ** indentation
