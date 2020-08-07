@@ -6,3 +6,4 @@ ln -sf /home/max/src/dotfiles/emacs/settings.org ~/.emacs.d/settings.org
 ln -sf /home/max/src/dotfiles/xterm/.Xresources ~/.Xresources
 ln -sf /home/max/src/dotfiles/misc/.Xmodmap ~/.Xmodmap
 ln -sf /home/max/src/dotfiles/openbox/* ~/.config/openbox/
+ln -sf /home/max/src/dotfiles/rofi/* ~/.config/rofi
