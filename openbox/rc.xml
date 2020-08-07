@@ -42,7 +42,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Numix-Clone</name>
+    <name>Degrade-Froly</name>
     <titleLayout/>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -111,19 +111,17 @@
       <!-- 'italic' or 'normal' -->
     </font>
   </theme>
-
   <desktops>
     <number>4</number>
     <firstdesk>1</firstdesk>
     <names>
-    <name>1</name>
-    <name>2</name>
-    <name>3</name>
-    <name>4</name>
+      <name>1</name>
+      <name>2</name>
+      <name>3</name>
+      <name>4</name>
     </names>
     <popupTime>875</popupTime>
   </desktops>
-
   <resize>
     <drawContents>yes</drawContents>
     <popupShow>Nonpixel</popupShow>
@@ -145,12 +143,11 @@
      Many programs reserve space automatically, but you can use this in other
      cases. -->
   <margins>
-    <top>0</top>
-    <bottom>0</bottom>
-    <left>0</left>
-    <right>0</right>
+    <top>15</top>
+    <bottom>15</bottom>
+    <left>15</left>
+    <right>15</right>
   </margins>
-
   <dock>
     <position>TopLeft</position>
     <floatingX>0</floatingX>
@@ -163,7 +160,6 @@
     <showDelay>300</showDelay>
     <moveButton>Middle</moveButton>
   </dock>
-
   <keyboard>
     <chainQuitKey>C-g</chainQuitKey>
     <!-- Keybindings for desktop switching -->
@@ -254,7 +250,6 @@
         </finalactions>
       </action>
     </keybind>
-
     <!-- Keybindings for window switching with the arrow keys 
     <keybind key="W-S-Right">
       <action name="DirectionalCycleWindows">
@@ -277,46 +272,41 @@
       </action>
     </keybind>
 		-->
-
     <!-- Keybindings for running applications -->
     <keybind key="W-p">
       <action name="Execute">
-				<command>dmenu_run</command>
+        <command>rofi -show run</command>
       </action>
     </keybind>
-
     <keybind key="W-t">
       <action name="Execute">
-				<command>alacritty</command>
+        <command>xterm</command>
       </action>
     </keybind>
-
     <keybind key="W-b">
       <action name="Execute">
-				<command>brave-browser</command>
+        <command>firefox</command>
       </action>
     </keybind>
-
     <keybind key="W-m">
       <action name="Execute">
-				<command>thunderbird</command>
+        <command>thunderbird</command>
       </action>
     </keybind>
-
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-            <command>amixer -D pulse set Master 5%+ unmute</command>
-        </action>
+        <command>amixer -D pulse set Master 5%+ unmute</command>
+      </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
-        <action name="Execute">
-            <command>amixer -D pulse set Master 5%- unmute</command>
-        </action>
+      <action name="Execute">
+        <command>amixer -D pulse set Master 5%- unmute</command>
+      </action>
     </keybind>
     <keybind key="XF86AudioMute">
-        <action name="Execute">
-            <command>amixer -D pulse set Master 1+ toggle</command>
-        </action>
+      <action name="Execute">
+        <command>amixer -D pulse set Master 1+ toggle</command>
+      </action>
     </keybind>
     <!-- Launch scrot when Print is pressed -->
     <keybind key="Print">
@@ -325,7 +315,6 @@
       </action>
     </keybind>
   </keyboard>
-
   <mouse>
     <dragThreshold>1</dragThreshold>
     <!-- number of pixels the mouse must move before a drag begins -->

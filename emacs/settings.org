@@ -32,6 +32,8 @@ Misc:
   (look at behavior similar to rss feed reader: list of articles above,
   display article abstract + bibtex in window below)
 - Backup manager
+- Splash screen (dashboard)
+- statusbar/modeline
 
 *** TODO Packages
 - Ido
@@ -169,9 +171,9 @@ disable all GUI bars
 
 ** font 
 #+BEGIN_SRC emacs-lisp
-(set-frame-font "Hack 10" nil t)
+(set-frame-font "Terminus 10" nil t)
 #+END_SRC
-
+b
 ** line numbers
 does not display line numbers by default
 toggle with keybinding C-= l
@@ -318,6 +320,16 @@ linter to fix inconsistencies)
 #+BEGIN_SRC emacs-lisp
 (setq dired-listing-switches "-al --group-directories-first")
 #+END_SRC
+
+* TODO eshell
+
+overview of the eshell: http://howardism.org/Technical/Emacs/eshell-present.html
+
+configuration of the eshell:
+- aliases
+- prompt
+- xdg-open for various files
+- dired integrations
 
 * git
 
