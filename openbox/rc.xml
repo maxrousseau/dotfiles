@@ -278,6 +278,11 @@
         <command>rofi -show run</command>
       </action>
     </keybind>
+    <keybind key="W-o">
+      <action name="Execute">
+        <command>rofi -show window</command>
+      </action>
+    </keybind>
     <keybind key="W-t">
       <action name="Execute">
         <command>xterm</command>

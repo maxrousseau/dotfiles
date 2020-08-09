@@ -173,7 +173,7 @@ disable all GUI bars
 #+BEGIN_SRC emacs-lisp
 (set-frame-font "Terminus 10" nil t)
 #+END_SRC
-b
+
 ** line numbers
 does not display line numbers by default
 toggle with keybinding C-= l
