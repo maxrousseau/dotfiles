@@ -171,7 +171,7 @@ disable all GUI bars
 
 ** font 
 #+BEGIN_SRC emacs-lisp
-(set-frame-font "Terminus 10" nil t)
+(set-frame-font "Spleen 32x64 12" nil t)
 #+END_SRC
 
 ** line numbers
