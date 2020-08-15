@@ -2,6 +2,14 @@
 # small cli to help manage linux system
 
 # *****
+# Filesystem setup TODO
+# check is structure present
+# fix missing
+
+# *****
+# auto backup on prompt
+
+# *****
 # packages
 # get PPAs
 
@@ -10,7 +18,7 @@
 # rofi
 
 # *****
-# fonts (download terminus, spleen and hack)
+# fonts (download terminus, spleen and hack?)
 FONT_SPLEEN=/home/max/src/myfonts/spleen-1.8.2
 if  [ -d "$FONT_SPLEEN" ]; then
 
@@ -20,10 +28,11 @@ else
 
 	echo "$FONT_SPLEEN spleen font not found, downloading"
 
+	mkdir /home/max/src/myfonts
 	cd /home/max/src/myfonts/
 	wget https://github.com/fcambus/spleen/releases/download/1.8.2/spleen-1.8.2.tar.gz
 	tar -xvf ./spleen-1.8.2.tar.gz 
-	cp -r ./spleen ~/.local/share/fonts/
+	cp -r /home/max/src/myfonts/spleen-1.8.2/ ~/.local/share/fonts/
   
 fi
 
@@ -54,6 +63,9 @@ ln -sf /home/max/src/dotfiles/rofi/* ~/.config/rofi
 xrdb -merge ~/.Xresources
 echo "configs updated"
 
-# system health checks
+# *****
+# Programming environment setup
+
+# system health checks and package updates
 
 # MOTD and startup (maybe do this in elisp?)
