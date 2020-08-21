@@ -3,8 +3,12 @@
 
 # *****
 # Filesystem setup TODO
-# check is structure present
-# fix missing
+# 1. make a list of all dirs that are use in the script
+# 2. check if exists, if not create
+HOME=/home/max
+SRC="$HOME"/src
+DOC="$HOME"/doc
+# etc...
 
 # *****
 # auto backup on prompt
