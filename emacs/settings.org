@@ -11,13 +11,16 @@ Additional packages
 - Projectile (project management)
 - Company (autocomplete)
 - Yasnippets (duh)
-- Flycheck
+- Flycheck (ok)
 - Dash (for documentations)
 - Man (man pages, do I have this already?)
 - Tags (code navigations)
 - Snipe (bc evil is not really emacs-y...)
 - Gud (debugging)
 - Which-key (keybindings cheatsheet)
+- Ivy
+- ace-window
+- ace-jump
 
 Essentials:
 1. multi-line editing (http://ergoemacs.org/emacs/emacs_string-rectangle_ascii-art.html)
@@ -35,12 +38,6 @@ Misc:
 - Splash screen (dashboard)
 - statusbar/modeline
 
-*** TODO Packages
-- Ido
-- ace-window
-- ace-jump
-- projectile
-
 ** Cheat Sheet
 *** Navigation
 
@@ -57,11 +54,12 @@ Misc:
 -< top of buffer
 -> end of buffer
 
-*** Deletion:
+*** Deletion
 
 -d delete char forward
-EL delete char backward
+-DEL delete char backward
 -d delete word forward
+
 -DEL delete word backward
 -k delete to end of line
 -S-DEL delete line
@@ -108,7 +106,11 @@ M-x magit to open the menu
 - p to push changes
 
 * packages setup
-** setup repositories
+
+The use-package way of installing and using packages for emacs [[https://jwiegley.github.io/use-package/][homepage]]
+Install packages and lazy-load with use-package for better performance and
+easily setting options on startup.
+
 #+BEGIN_SRC emacs-lisp
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
@@ -129,13 +131,8 @@ There are two things you can do about this warning:
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 (setq package-check-signature 'allow-unsigned)
-#+End_SRC
-** use-package setup
 
-the use package way of installing and using packages for emacs
-[[https://jwiegley.github.io/use-package/][homepage]]
-
-#+BEGIN_SRC emacs-lisp
+;; now for use-package
 (add-to-list 'load-path "~/.emacs.d/site-lisp/use-package")
 (require 'use-package)
 
@@ -144,56 +141,51 @@ the use package way of installing and using packages for emacs
   (add-to-list 'Info-directory-list
                "~/.emacs.d/site-lisp/use-package/"))
 #+END_SRC
+
 * appearance
-** colorscheme
+
+- colorscheme
+- status line
+- bars
+- font
+- line numbers
+- startup prompt
+
 #+BEGIN_SRC emacs-lisp
+;; best themes 
 (use-package base16-theme
   :ensure t
   :config
   (load-theme 'base16-espresso t))
-#+END_SRC
-** TODO statusbar
-   
-This status line is not great, improve on clarity of information displayed.
 
-#+BEGIN_SRC emacs-lisp
+;; This status line is not great, improve on clarity of information displayed.
 (display-time-mode 1)
-#+END_SRC
 
-** bars
-disable all GUI bars
-
-#+BEGIN_SRC emacs-lisp
+;; disable all GUI bars
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-#+END_SRC
 
-** font 
-#+BEGIN_SRC emacs-lisp
+;; dope bitmap font
 (set-frame-font "Spleen 32x64 12" nil t)
-#+END_SRC
 
-** line numbers
-does not display line numbers by default
-toggle with keybinding C-= l
-
-#+BEGIN_SRC emacs-lisp
+;; does not display line numbers by default
+;; toggle with keybinding C-= l
 (global-linum-mode 1)
 (global-set-key (kbd "C-; l") 'global-linum-mode)
-#+END_SRC
 
-** TODO startup prompt
-#+BEGIN_SRC emacs-lisp
+;; on startup -> currently nothing goes to scratch
+;; TODO make improvements to this
 (setq inhibit-startup-screen t)
 #+END_SRC
 
 * backup
 
-Place backup files in a specific folder. This was copy-pasted.
-Should be rewritten and customized.
+Relocate temporary files and backups from emacs
 
 #+BEGIN_SRC emacs-lisp
+;; Place backup files in a specific folder, this was copy-pasted...
+;; Should be rewritten and customized
 ;;Put backup files neatly away
 (let ((backup-dir "~/.emacs.d/Emacs/backups")
       (auto-saves-dir "~/.emacs.d/Emacs/autosavedir/")
@@ -234,10 +226,8 @@ Using helm to manage buffers easily.
 	:init
 	(require 'helm-config))
 #+END_SRC
-* editing
-** TODO mr-editing
 
-TO BE REMOVED, REPLACED BY EVIL-MODE, WHICH WILL ALSO BE REPLACED
+* editing
 
 customized mode for editing based on simplicity
 fast movement adapted to the file type and their regions of interest (ROI)
@@ -253,58 +243,25 @@ Currently implemented:
 
 #+BEGIN_SRC emacs-lisp
 ;; bindings for easier paragraph movement
-;; TODO fix the fact that the meta key needs to be pressed multiple times to be activated
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 ;; (load "~/.emacs.d/mr-editing.el")
-#+END_SRC
 
-** evil mode
-#+BEGIN_SRC emacs-lisp
-;;(use-package evil
-;;  :ensure t ;; install the evil package if not installed
-;;  :init ;; tweak evil's configuration before loading it
-;;  (setq evil-search-module 'evil-search)
-;;  (setq evil-ex-complete-emacs-commands nil)
-;;  (setq evil-vsplit-window-right t)
-;;  (setq evil-split-window-below t)
-;;  (setq evil-shift-round nil)
-;;  (setq evil-want-C-u-scroll t)
-;;  :config ;; tweak evil after loading it
-;;  (evil-mode)
-;;
-;;  ;; example how to map a command in normal mode (called 'normal state' in evil)
-;;  (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
-#+END_SRC
-
-** indentation
-
-Indent with of four and use tab to allow indentation
-use M-i to insert tab
-
-#+BEGIN_SRC emacs-lisp
+;; Indent with of four and use tab to allow indentation
+;; use M-i to insert tab
 (setq-default tab-width 4
 	indent-tabs-mode t)
-#+END_SRC
 
-** 80 column rule
-
-Will highlight text in red if goes past 80 characters.
-(does not work on startup ...)
-
-#+BEGIN_SRC emacs-lisp
+;; Will highlight text in red if goes past 80 characters.
+;; (does not work on startup ...)
 (use-package column-enforce-mode
   :ensure t
   :init)
 (setq-default global-column-enforce-mode t)
-#+END_SRC
 
-** TODO autrowrap 80
-
-still not working well, also does not matter all that much anyways (just use a
-linter to fix inconsistencies)
-
-#+BEGIN_SRC emacs-lisp
+;; Autrowrap 80
+;; still not working well, also does not matter all that much anyways (just use a
+;; linter to fix inconsistencies)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'prog-mode-hook 'turn-on-auto-fill)
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
@@ -339,24 +296,12 @@ configuration of the eshell:
   :init)
 #+END_SRC
 
-* elfeed
-
-- [ ]  Redo setup with use-package
-
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-; w") 'elfeed)
-(setq elfeed-feeds
-      '(("https://openai.com/blog/rss/" tech)
-	  ("http://feeds.feedburner.com/RBloggers?format=xml" tech)))
-(setf url-queue-timeout 30)
-#+END_SRC
-
 * python
 
-Elpy package setup with use-package, using defer t
-to enable lazy loading.
-
 #+BEGIN_SRC emacs-lisp
+;; Elpy package setup with use-package, using defer t
+;; to enable lazy loading.
+
 (use-package elpy
   :ensure t
   :defer t
@@ -369,9 +314,8 @@ to enable lazy loading.
 
 * Markdown
 
-add markdown syntax support for emacs
-
 #+BEGIN_SRC emacs-lisp
+;; add markdown syntax support for emacs
 (use-package markdown-mode
   :ensure t
   :mode (("README\\.md\\'" . gfm-mode)
@@ -381,11 +325,9 @@ add markdown syntax support for emacs
 #+END_SRC
 
 * R
-** ESS
-
-Powerful emacs speaks statistics package
 
 #+BEGIN_SRC emacs-lisp
+;; Powerful emacs speaks statistics package
 (use-package ess
  :ensure t
  :init (require 'ess-site))
@@ -393,9 +335,8 @@ Powerful emacs speaks statistics package
 
 * yasnippets
 
-Enable yasnippets for all modes
-
 #+BEGIN_SRC emacs-lisp
+;; Enable yasnippets for all modes
 (use-package yasnippet
   :ensure t
   :init
@@ -404,9 +345,8 @@ Enable yasnippets for all modes
 
 * flycheck
 
-Syntax checking for all modes
-
 #+BEGIN_SRC emacs-lisp
+;; Syntax checking for all modes
 (use-package flycheck
   :ensure t
   :init
