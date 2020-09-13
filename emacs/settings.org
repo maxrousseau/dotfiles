@@ -39,6 +39,7 @@ Misc:
 - statusbar/modeline
 
 ** Cheat Sheet
+*** Window navigation
 *** Navigation
 
 -n down
