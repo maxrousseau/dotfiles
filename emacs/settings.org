@@ -1,9 +1,10 @@
 * Overview 
-** Elisp
 
-Ressource: [[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][introduction to elisp]]
+Elisp ressource: [[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][introduction to elisp]]
+Emacs wiki: 
 
 ** TODO Customization
+
 Simplified custom essentials for increased efficiency of text file editing.
 - C-; (prefix for custom commands)
   
@@ -29,6 +30,8 @@ Essentials:
    - prompt customization
    - shortcuts
    - integration with dired (for improved movement and file management)
+   - quick minibuffer command binding
+3. build commands for cpp
 
 Misc:
 - Major mode for scientific publication search, bib and paper download
@@ -208,24 +211,41 @@ Relocate temporary files and backups from emacs
       kept-old-versions 2)   ; and some old ones, too
 #+END_SRC
 
-* buffers
+* buffer
 
-Using helm to manage buffers easily.
-- buffer menu
-- bookmark files
-- finding files
+Using ivy to manage minibuffer/buffer easily
+- favorite file menu
+- documentation: https://oremacs.com/swiper/
 
 #+BEGIN_SRC emacs-lisp
-  (use-package helm
-	:ensure t
-	:defer t
-	:bind (("C-; f" . helm-find-files)
-		  ("C-; b" . helm-buffers-list)
-		  ("C-; m" . helm-bookmarks)
-		  ("C-; x" . helm-M-x)
-		  ("C-; y" . helm-show-kill-ring))
-	:init
-	(require 'helm-config))
+;; maybe put this as use-package for future?
+(ivy-mode 1) ;;enables ivy
+;; some standards settings to begin with
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
+
+;; some more default settings to get started
+(global-set-key (kbd "C-s") 'swiper-isearch)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "M-y") 'counsel-yank-pop) ;;shows the kill ring
+
+;; get help
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+;; for emacs settings?
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "<f2> j") 'counsel-set-variable)
+
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+(global-set-key (kbd "C-c v") 'ivy-push-view)
+(global-set-key (kbd "C-c V") 'ivy-pop-view)
+
+(global-set-key (kbd "C-; n") 'new-frame)
+(global-set-key (kbd "C-; c") 'delete-frame)
+(global-set-key (kbd "C-; g") 'magit)
 #+END_SRC
 
 * editing
@@ -288,6 +308,11 @@ configuration of the eshell:
 - prompt
 - xdg-open for various files
 - dired integrations
+
+#+BEGIN_SRC emacs-lisp
+;; minibuffer command
+(global-set-key (kbd "C-; e") 'eshell-command)
+#+END_SRC
 
 * git
 
