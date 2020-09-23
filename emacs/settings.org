@@ -214,8 +214,11 @@ Relocate temporary files and backups from emacs
 * buffer
 
 Using ivy to manage minibuffer/buffer easily
+(documentation: https://oremacs.com/swiper/)
+
+TODO:
 - favorite file menu
-- documentation: https://oremacs.com/swiper/
+- setup file search w/ ripgrep/fzf?
 
 #+BEGIN_SRC emacs-lisp
 ;; maybe put this as use-package for future?
@@ -243,6 +246,7 @@ Using ivy to manage minibuffer/buffer easily
 (global-set-key (kbd "C-c v") 'ivy-push-view)
 (global-set-key (kbd "C-c V") 'ivy-pop-view)
 
+;; some other kbd
 (global-set-key (kbd "C-; n") 'new-frame)
 (global-set-key (kbd "C-; c") 'delete-frame)
 (global-set-key (kbd "C-; g") 'magit)
