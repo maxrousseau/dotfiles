@@ -163,10 +163,13 @@ There are two things you can do about this warning:
 (use-package base16-theme
   :ensure t
   :config
-  (load-theme 'base16-espresso t))
+  (load-theme 'base16-dracula t))
 
 ;; This status line is not great, improve on clarity of information displayed.
 (display-time-mode 1)
+
+;; highlight current line
+(global-hl-line-mode 1)
 
 ;; disable all GUI bars
 (menu-bar-mode -1)
@@ -174,7 +177,7 @@ There are two things you can do about this warning:
 (scroll-bar-mode -1)
 
 ;; dope bitmap font
-(set-frame-font "Spleen 32x64 12" nil t)
+(set-frame-font "Spleen 32x64 14" nil t)
 
 ;; does not display line numbers by default
 ;; toggle with keybinding C-= l
@@ -356,6 +359,7 @@ The essentials I need for every language:
 - code snippets
 - syntax checking
 - autocompletion + lsp
+- goto function definition / variable declaration
 
 TODO -> remove language specific packages (i.e. elpy ESS) since I barely use any
 of their features...
@@ -373,6 +377,9 @@ of their features...
   :ensure t
   :init
     (global-flycheck-mode t))
+
+;; setup company mode
+;; setup eglot for R python and c++
 
 ;; add markdown syntax support for emacs
 (use-package markdown-mode
