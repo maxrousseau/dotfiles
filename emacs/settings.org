@@ -379,7 +379,20 @@ of their features...
     (global-flycheck-mode t))
 
 ;; setup company mode
-;; setup eglot for R python and c++
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+;; setup eglot ++++++++++++++++++
+(use-package eglot :ensure t)
+;; R
+;; C++
+(add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd-10"))
+(add-hook 'c-mode-hook 'eglot-ensure)
+(add-hook 'c++-mode-hook 'eglot-ensure)
+(setq company-backends (delete 'company-semantic company-backends))
+(define-key c-mode-map  [(tab)] 'company-complete)
+(define-key c++-mode-map  [(tab)] 'company-complete)
+;; python
+(add-hook 'python-mode-hook 'eglot-ensure)
 
 ;; add markdown syntax support for emacs
 (use-package markdown-mode
