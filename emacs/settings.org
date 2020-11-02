@@ -147,6 +147,8 @@ There are two things you can do about this warning:
   (info-initialize)
   (add-to-list 'Info-directory-list
                "~/.emacs.d/site-lisp/use-package/"))
+;; on my windows machine some problems with gpg so let's disble the signature checking
+;;(setq package-check-signature nil)
 #+END_SRC
 
 * appearance
