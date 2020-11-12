@@ -408,28 +408,3 @@ of their features...
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 #+END_SRC
-
-** python
-
- #+BEGIN_SRC emacs-lisp
- ;; Elpy package setup with use-package, using defer t
- ;; to enable lazy loading.
-
- (use-package elpy
-   :ensure t
-   :defer t
-   :init
-   (advice-add 'python-mode :before 'elpy-enable))
- (setq elpy-rpc-virtualenv-path 'current)
- (setq elpy-rpc-python-command "python3")
- (setq elpy-interactive-python-command "python3")
- #+END_SRC
-
-** R
-
- #+BEGIN_SRC emacs-lisp
- ;; Powerful emacs speaks statistics package
- (use-package ess
-  :ensure t
-  :init (require 'ess-site))
- #+END_SRC
