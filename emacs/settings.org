@@ -381,9 +381,15 @@ of their features...
 ;; setup company mode
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
+(global-set-key (kbd "C-; k") 'company-complete)
 ;; setup eglot ++++++++++++++++++
 (use-package eglot :ensure t)
 ;; R
+;; Go
+(autoload 'go-mode "go-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+(add-hook 'go-mode-hook 'eglot-ensure)
+(add-hook 'before-save-hook 'gofmt-before-save)
 ;; C++
 (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd-10"))
 (add-hook 'c-mode-hook 'eglot-ensure)
