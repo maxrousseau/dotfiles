@@ -9,7 +9,6 @@
 set nocompatible
 filetype off
 
-" set the runtime path to include Vundle and initialize
 set colorcolumn=80
 
 inoremap <LocalLeader><Space> <Esc>/<++><Enter>"_c4l
@@ -18,7 +17,7 @@ inoremap [ []<Esc>i
 inoremap { {}<Esc>i
 
 " font
-set guifont=terminus:h11:cANSI
+set guifont=hack:h11:cANSI
 
 " remove annoying sound and flash
 set noeb vb t_vb=
@@ -44,17 +43,70 @@ set encoding=utf-8
 syntax on
 set laststatus=2
 set tw=79
-colorscheme evening
+set relativenumber
 
-" setup for pludings
+" Easy reload
+nnoremap <C-r> :so $USERPROFILE/_vimrc<Enter>
+
+" Leaders
+let mapleader = "."
+let maplocalleader = ";"
+
+" Insert tags
+nnoremap <LocalLeader><Space> <Esc>/<++><Enter>d4li
+
+" setup for plugins
 filetype plugin indent on	" required
+call plug#begin("$USERPROFILE/.vim/plugged")
+
+" Markdown
+" --------
+" settings:
+" - enable folding to syntax
+" - read Rmd as md
+autocmd BufRead *.Rmd set filetype=markdown
+setlocal foldmethod=syntax
+let g:markdown_folding = 1
+
+" Buffers
+" -------
+" TODO: ripgrep for easy file/buffer navigation
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+nnoremap <LocalLeader>b :CtrlPBuffer<Enter>
+nnoremap <LocalLeader>f :CtrlP<Enter>
+nnoremap <LocalLeader>d :Explore<Enter>
+" > some tips on how to setup netrw https://shapeshed.com/vim-netrw/
+
+" Git
+" ---
+" TODO: vim fugitive
+
+" Movement
+" --------
+" TODO: vim-snipe or vim-sneak, multiline editing linum-relative
+
+" Appearance
+" ----------
+" TODO: statusbar and base-16 color
+Plug 'chriskempson/base16-vim'
+colorscheme base16-atelier-dune
+
+" Snippets
+" --------
+" TODO: setup ultisnip
 
 " python
 let python_highlight_all=1
 let pythonthreedll="C:\Program Files\Python 3.5\python35.dll"
 
 " Window navigation
+" -----------------
+" Sane shortcuts for pane switching
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+call plug#end()

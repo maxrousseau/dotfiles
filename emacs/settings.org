@@ -179,7 +179,7 @@ There are two things you can do about this warning:
 (scroll-bar-mode -1)
 
 ;; dope bitmap font
-(set-frame-font "Spleen 32x64 14" nil t)
+(set-frame-font "Spleen 32x64 12" nil t)
 
 ;; does not display line numbers by default
 ;; toggle with keybinding C-= l
