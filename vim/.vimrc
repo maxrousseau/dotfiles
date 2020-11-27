@@ -1,7 +1,11 @@
-" vimrc
-" Maxime Rousseau
-" 26-06-2020
-" **********
+" =============================================================================
+"        ,--.!,
+"     __/   -*-
+"   ,d08b.  '|`
+"   0088MM
+"   `9MMP'
+"			vimconfig @ maxrousseau
+" =============================================================================
 
 " General
 " -------
@@ -19,13 +23,15 @@ highlight ColorColumn ctermbg=8 guibg=lightgrey
 set clipboard+=unnamedplus
 set timeoutlen=200
 set list
-set list listchars=nbsp:¬,tab:··,trail:·,extends:>
+set list listchars=nbsp:¬,tab:\|\·,trail:·,extends:>
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set number
 set tw=79
 set visualbell
+set relativenumber
+set cursorline
 
 " Easy reload
 nnoremap <C-r> :so $HOME/.vimrc<Enter>
@@ -65,6 +71,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 nnoremap <LocalLeader>b :Buffers<Enter>
 nnoremap <LocalLeader>f :Files<Enter>
+nnoremap <LocalLeader>d :Explore<Enter>
 
 " Git
 " ---
@@ -77,10 +84,17 @@ nnoremap <LocalLeader>f :Files<Enter>
 " Appearance
 " ----------
 " TODO: statusbar and base-16 color
+Plug 'chriskempson/base16-vim'
+let base16colorspace=256
+
 
 " Snippets
 " --------
 " TODO: setup ultisnip
+
+
+call plug#end()
+colorscheme base16-unikitty-dark
 
 " Window navigation
 " -----------------
@@ -90,4 +104,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-call plug#end()
+
+
+

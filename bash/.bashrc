@@ -34,10 +34,18 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+# Prompt
+# -----------------------------------------------------------------------------
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+	        eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
@@ -86,8 +94,8 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some aliases
-#----------------------------------------
+# Aliases
+# -----------------------------------------------------------------------------
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -100,6 +108,7 @@ alias t='tmux'
 alias tl='tmux list-session'
 alias ta='tmux attach -t'
 alias tk='tmux kill-session -t'
+alias pyr='poetry run python'
 alias xterm_reload='xrdb -merge ~/.Xresources'
 # backup alias
 # alias mybackup="rsync -av --timeout=60 --progress /home/max/Documents/work /media/max/Seagate\ Backup\ Plus\ Drive/zenbook"
@@ -148,12 +157,15 @@ stty start ''
 stty -ixon
 stty -ixoff
 
-
+# Programming environment
+# -----------------------------------------------------------------------------
 # virtualenv
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=$HOME/.virtualenvs
 source $HOME/.local/bin/virtualenvwrapper.sh
 
+# poetry path
+source /home/max/.poetry/env
 
 # nim path
 export PATH=/home/max/.nimble/bin:$PATH
