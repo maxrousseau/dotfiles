@@ -1,124 +1,8 @@
-* Overview 
-
-Elisp ressource: [[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][introduction to elisp]]
-Emacs wiki: ???
-
-ESS and elpy are pretty slow, consider removing or alternatives -> just have the
-snippets (yasnippets), syntax check (flycheck) and lsp (company + eglot)
-
-** TODO Customization
-
-Simplified custom essentials for increased efficiency of text file editing.
-- C-; (prefix for custom commands)
-  
-Additional packages
-- Projectile (project management)
-- Company (autocomplete)
-- Yasnippets (duh)
-- Flycheck (ok)
-- Dash (for documentations)
-- Man (man pages, do I have this already?)
-- Tags (code navigations)
-- Snipe (bc evil is not really emacs-y...)
-- Gud (debugging)
-- Which-key (keybindings cheatsheet)
-- Ivy
-- ace-window
-- ace-jump
-
-Essentials:
-1. multi-line editing (http://ergoemacs.org/emacs/emacs_string-rectangle_ascii-art.html)
-2. eshell (learn more, efficiency, and configuration)
-   - aliases
-   - prompt customization
-   - shortcuts
-   - integration with dired (for improved movement and file management)
-   - quick minibuffer command binding
-3. build commands for cpp
-
-Misc:
-- Major mode for scientific publication search, bib and paper download
-  (look at behavior similar to rss feed reader: list of articles above,
-  display article abstract + bibtex in window below)
-- Backup manager
-- Splash screen (dashboard)
-- statusbar/modeline
-
-** Cheat Sheet
-*** Window navigation
-*** Navigation
-
--n down
--p up
--f forward
--b backwards
--f forward word
--b backward word
--a beginning line
--e end line
--a beginning sentence/paragraph
--e end sentence/paragraph
--< top of buffer
--> end of buffer
-
-*** Deletion
-
--d delete char forward
--DEL delete char backward
--d delete word forward
-
--DEL delete word backward
--k delete to end of line
--S-DEL delete line
--SPC set mark
--w delete + copy selection
--w copy selection
--y paste (yank)
-
-*** Insertion
- substitute word
- substitute in selection
- substitute in file
-
-*** Misc
--/ undo
--l center/top cursor to screen
--r toggle cursor top middle bottom screen
-
-*** Dired
-C-x d open dired from input directory
- d to mark as delete
- x to execute action
-
-*** Orgmode
--RET new header same level
--S-RET new header TODO same level
-
-or lists:
--c C-c toggle checkbox
-
-*** Search
--s i-search
--M-s regxp search
--% search + replace
--S-% search + replace regexp
-
-*** Magit
-M-x magit to open the menu
-- s to stage changes (<shift> for all)
-  - Tab to inspect items
-  - RET to got to files
-- c to commit changes
-  - write message then C-c C-c to exit
-- p to push changes
-
-* packages setup
-
-The use-package way of installing and using packages for emacs [[https://jwiegley.github.io/use-package/][homepage]]
-Install packages and lazy-load with use-package for better performance and
-easily setting options on startup.
-
-#+BEGIN_SRC emacs-lisp
+;; emacs config
+;; Maxime Rousseau
+;;
+;; Package Setup
+;; ------------------------------------------------------------
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
@@ -147,20 +31,9 @@ There are two things you can do about this warning:
   (info-initialize)
   (add-to-list 'Info-directory-list
                "~/.emacs.d/site-lisp/use-package/"))
-;; on my windows machine some problems with gpg so let's disble the signature checking
-;;(setq package-check-signature nil)
-#+END_SRC
 
-* appearance
-
-- colorscheme
-- status line
-- bars
-- font
-- line numbers
-- startup prompt
-
-#+BEGIN_SRC emacs-lisp
+;; Appearance
+;; ------------------------------------------------------------
 ;; best themes 
 (use-package base16-theme
   :ensure t
@@ -189,13 +62,9 @@ There are two things you can do about this warning:
 ;; on startup -> currently nothing goes to scratch
 ;; TODO make improvements to this
 (setq inhibit-startup-screen t)
-#+END_SRC
 
-* backup
-
-Relocate temporary files and backups from emacs
-
-#+BEGIN_SRC emacs-lisp
+;; Backup
+;; ------------------------------------------------------------
 ;; Place backup files in a specific folder, this was copy-pasted...
 ;; Should be rewritten and customized
 ;;Put backup files neatly away
@@ -217,18 +86,9 @@ Relocate temporary files and backups from emacs
       version-control t      ; Use version numbers on backups,
       kept-new-versions 3    ; keep some new versions
       kept-old-versions 2)   ; and some old ones, too
-#+END_SRC
 
-* buffer
-
-Using ivy to manage minibuffer/buffer easily
-(documentation: https://oremacs.com/swiper/)
-
-TODO:
-- favorite file menu
-- setup file search w/ ripgrep/fzf?
-
-#+BEGIN_SRC emacs-lisp
+;; Buffer
+;; ------------------------------------------------------------
 ;; maybe put this as use-package for future?
 (ivy-mode 1) ;;enables ivy
 ;; some standards settings to begin with
@@ -261,23 +121,9 @@ TODO:
 (global-set-key (kbd "C-; g") 'magit)
 (global-set-key (kbd "C-; m") 'counsel-rhythmbox)
 (global-set-key (kbd "C-; M") 'counsel-rhythmbox-playpause-current-song)
-#+END_SRC
 
-* editing
-
-customized mode for editing based on simplicity
-fast movement adapted to the file type and their regions of interest (ROI)
-org -> headers or other ROI (code block, links, etc.)
-python -> class, methods, import block
-R -> funtions
-
-Currently implemented:
-- C-[ d delete word under cursor
-- C-[ D delete line under cursor
-- M-n next paragraph
-- M-p previous paragraph
-
-#+BEGIN_SRC emacs-lisp
+;; Editing
+;; ------------------------------------------------------------
 ;; bindings for easier paragraph movement
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
@@ -303,28 +149,14 @@ Currently implemented:
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 (setq-default fill-column 80)
 (setq auto-fill-mode t)
-#+END_SRC
 
-* dired
+;; Dired
+;; ------------------------------------------------------------
 
-- [ ] navigation without creating new buffers
-- [ ] opening files with xdg-open
-
-#+BEGIN_SRC emacs-lisp
 (setq dired-listing-switches "-al --group-directories-first")
-#+END_SRC
 
-* TODO eshell
-
-overview of the eshell: http://howardism.org/Technical/Emacs/eshell-present.html
-
-configuration of the eshell:
-- aliases
-- prompt
-- xdg-open for various files
-- dired integrations
-
-#+BEGIN_SRC emacs-lisp
+;; Eshell
+;; ------------------------------------------------------------
 ;; minibuffer command
 (global-set-key (kbd "C-; e") 'eshell)
 (global-set-key (kbd "C-; M-e") 'eshell-command)
@@ -345,29 +177,15 @@ configuration of the eshell:
 			(propertize "\n")
 			(propertize "> "))))
 (global-set-key (kbd "C-; r") 'mkrun)
-#+END_SRC
 
-* git
-
-#+BEGIN_SRC emacs-lisp
+;; Git
+;; ------------------------------------------------------------
 (use-package magit
   :ensure t
   :init)
-#+END_SRC
 
-* TODO programming
-
-The essentials I need for every language:
-- code snippets
-- syntax checking
-- autocompletion + lsp
-- goto function definition / variable declaration
-
-TODO -> remove language specific packages (i.e. elpy ESS) since I barely use any
-of their features...
-
-
-#+BEGIN_SRC emacs-lisp
+;; Programming
+;; ------------------------------------------------------------
 ;; Enable yasnippets for all modes
 (use-package yasnippet
   :ensure t
@@ -407,4 +225,3 @@ of their features...
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
-#+END_SRC

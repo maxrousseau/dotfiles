@@ -1,7 +1,47 @@
 * Emacs setup
 
-to use this configuration you must have:
+I simplified my emacs setup as much as possible (for now). Simply place the
+init.el into the .emacs.d/ directory which will point to the git version of the
+config.el file containing my settings.
 
+** TODO Customization
+   
+Simplified custom essentials for increased efficiency of text file editing.
+- C-; (prefix for custom commands)
+  
+
+Additional packages
+- Yasnippets
+- Flycheck
+- Tags (code navigations)
+- Snipe or ace-jump (text editing)
+- Gud (debugging)
+- Which-key (keybindings cheatsheet)
+- Ivy
+- ace-window
+
+
+Essentials:
+1. multi-line editing
+2. eshell (learn more, efficiency, and configuration)
+   - aliases
+   - prompt customization
+   - shortcuts
+   - integration with dired (for improved movement and file management)
+   - quick minibuffer command binding
+3. goto function definition / variable declaration (see tags)
+
+Misc things to do:
+- Major mode for scientific publication search, bib and paper download
+  (look at behavior similar to rss feed reader: list of articles above,
+  display article abstract + bibtex in window below)
+- Backup manager
+- Splash screen (dashboard)
+
+** Resources
+
+- overview of the eshell:
+  http://howardism.org/Technical/Emacs/eshell-present.html
+- multi-line: http://ergoemacs.org/emacs/emacs_string-rectangle_ascii-art.html
+- elisp ressource: [[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][introduction to elisp]]
 - emacs use-package [[https://github.com/jwiegley/use-package][repo]]
-- python3
-	- jedi, rope, black, flake8, pytest, virtualenv, virtualenvwrapper, pyvenv
