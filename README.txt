@@ -7,7 +7,7 @@ Configuration files that are actively maintained:
 - bash
 - tmux
 - xterm
-- rofi (should change to dmenu)
+- rofi
 - emacs
 
 Modify and run `bash manager.sh` to setup and update the configuration of your system.
