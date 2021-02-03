@@ -3,11 +3,11 @@ Configurations files
 
 Configuration files that are actively maintained:
 
-- emacs
+- vim
 - bash
 - tmux
 - xterm
-- vim
-- rofi
+- rofi (should change to dmenu)
+- emacs
 
 Modify and run `bash manager.sh` to setup and update the configuration of your system.

@@ -13,13 +13,17 @@ DOC="$HOME"/doc
 # *****
 # auto backup on prompt
 
-# *****
-# packages
-# get PPAs
-
-# tmux
-# emacs
-# rofi
+# ***** TODO
+# packages -- get PPAs
+#	python > sudo add-apt-repository ppa:deadsnakes/ppa
+#		> sudo apt update
+#		> sudo apt install python3.8 && apt install python3.8-*
+#	vim
+#	tmux
+#	tmux
+#	rofi (change to dmenu
+#	bash
+#		> git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 
 # *****
 # fonts (download terminus, spleen and hack?)
@@ -62,6 +66,7 @@ ln -sf /home/max/src/dotfiles/xterm/.Xresources ~/.Xresources
 ln -sf /home/max/src/dotfiles/misc/.Xmodmap ~/.Xmodmap
 ln -sf /home/max/src/dotfiles/openbox/* ~/.config/openbox/
 ln -sf /home/max/src/dotfiles/rofi/* ~/.config/rofi
+ln -sf /home/max/src/dotfiles/vim/.vimrc ~/.vimrc
 
 # update configs
 xrdb -merge ~/.Xresources
@@ -72,4 +77,4 @@ echo "configs updated"
 
 # system health checks and package updates
 
-# MOTD and startup (maybe do this in elisp?)
+# MOTD and startup
