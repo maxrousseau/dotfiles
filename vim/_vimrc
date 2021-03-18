@@ -17,11 +17,12 @@ inoremap [ []<Esc>i
 inoremap { {}<Esc>i
 
 " font
-set guifont=hack:h11:cANSI
+set guifont=hack:h10:cANSI
 
 " remove annoying sound and flash
 set noeb vb t_vb=
 au GUIEnter * set vb t_vb=
+set ghr=0
 
 " fixes backspace in insert mode
 set backspace=indent,eol,start
@@ -71,11 +72,10 @@ let g:markdown_folding = 1
 " Buffers
 " -------
 " TODO: ripgrep for easy file/buffer navigation
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-nnoremap <LocalLeader>b :CtrlPBuffer<Enter>
-nnoremap <LocalLeader>f :CtrlP<Enter>
+nnoremap <LocalLeader>b :buffers<CR>:buffer<Space>
+set wildmenu
+set wildmode=full
+nnoremap <LocalLeader>f :find<Space>
 nnoremap <LocalLeader>d :Explore<Enter>
 " > some tips on how to setup netrw https://shapeshed.com/vim-netrw/
 
@@ -85,19 +85,18 @@ nnoremap <LocalLeader>d :Explore<Enter>
 
 " Movement
 " --------
-" TODO: vim-snipe or vim-sneak, multiline editing linum-relative
+" TODO: vim-snipe or vim-sneak, multiline editing
 
 " Appearance
 " ----------
 " TODO: statusbar and base-16 color
 Plug 'chriskempson/base16-vim'
-colorscheme base16-atelier-dune
 
 " Snippets
 " --------
 " TODO: setup ultisnip
 
-" python
+" python version
 let python_highlight_all=1
 let pythonthreedll="C:\Program Files\Python 3.5\python35.dll"
 
@@ -110,3 +109,5 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 call plug#end()
+
+colorscheme base16-ashes

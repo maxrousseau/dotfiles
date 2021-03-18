@@ -44,4 +44,6 @@ Misc things to do:
   http://howardism.org/Technical/Emacs/eshell-present.html
 - multi-line: http://ergoemacs.org/emacs/emacs_string-rectangle_ascii-art.html
 - elisp ressource: [[https://www.gnu.org/software/emacs/manual/html_mono/eintr.html][introduction to elisp]]
-- emacs use-package [[https://github.com/jwiegley/use-package][repo]]
+- emacs documentation: https://www.gnu.org/software/emacs/manual/html_node/emacs/index.html
+
+
