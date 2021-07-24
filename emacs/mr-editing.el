@@ -1,17 +1,15 @@
 ;; Personal elisp file for editing
 
-;; Smart delete
-;; > if cursor on whitespace, delete until the next character (TODO)
-;; > if cursor on word, delete word (OK)
-;; > if cursor on symbol, delete symbol only (TODO)
-
-;; Whitespace movement
-;; > move backwards/forward along whitespace
-;; > move up/down along whitelines
+;;@TODO Smart delete
+;; > if cursor on whitespace, delete until the next character (@TODO)
+;; > if cursor on word, delete word (@DONE)
+;; > if cursor on symbol, delete symbol only (@TODO)
+;;@DONE Whitespace movement
+;; > move backwards/forward along whitespace (M-f / M-b)
+;; > move up/down along whitelines (M-n / M-p)
 
 ;; Substitution remap
 
-;; TODO:
 ;; 1. functions
 ;; - type of thing
 ;; - beginning whitespace
@@ -46,10 +44,21 @@
   (move-beginning-of-line nil)
   (kill-line nil))
 
-;; default keybindings
-(global-set-key (kbd "C-[ d") 'mr-delete-word)
-(global-set-key (kbd "C-[ D") 'mr-delete-line)
+;; delete to line start
+(defun mr-delete-to-begining-line ()
+  "deletes from the position of the cursor to the beginning of the line"
+  (interactive)
+;;  (set-mark (point))
+;;  (beginning-of-line)
+  (delete-region (beginning-of-line) (point)))
 
-;; bindings for easier paragraph movement
+;; Deletion keybindings
+;; @TODO create a minor mode (`) for easier modal style editing
+;;(global-set-key (kbd "C-d d") (delete-char(point)))
+(global-set-key (kbd "C-; d") 'mr-delete-word)
+(global-set-key (kbd "C-; D") 'mr-delete-line)
+;;(global-set-key (kbd "C-d a") 'mr-delete-to-begining-line)
+
+;; Movement keybindings
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
