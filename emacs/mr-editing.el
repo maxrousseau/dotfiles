@@ -1,15 +1,21 @@
 ;; Personal elisp file for editing
 
-;;@TODO Smart delete
+;;@TODO Smart delete (C-d trigger...)
+;; maybe I should make a minor mode for deletion which binds single key for
+;; line, word or regions?
 ;; > if cursor on whitespace, delete until the next character (@TODO)
 ;; > if cursor on word, delete word (@DONE)
 ;; > if cursor on symbol, delete symbol only (@TODO)
+
+;; Smart insert... C-i  (insert snippets/one or multiple objects at indent level)
+;; Smart movement... C-m (move along class/function/variable)
+
+
 ;;@DONE Whitespace movement
 ;; > move backwards/forward along whitespace (M-f / M-b)
 ;; > move up/down along whitelines (M-n / M-p)
 
 ;; Substitution remap
-
 ;; 1. functions
 ;; - type of thing
 ;; - beginning whitespace

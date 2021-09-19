@@ -5,24 +5,25 @@
 ;;
 ;; Startup
 ;; ------------------------------------------------------------
-;;@TODO make a little splash screen with useful directories and projects...
-;;	> a simple home.org files that is loaded at startup is a good start screen with dired on the other buffer in the source repo
 (setq inhibit-startup-screen t)
-(cd "c:/Users/roum5/source/")
+(cd "~/src/")
 (split-window-right)
-;;(find-file "c:/Users/roum5/source/dotfiles/emacs/home.org")
-;;loading org is way too slow
-;;@TODO add a favorites buffer list and text buffer as home...
+;;@TODO add a favorites buffer list
+;; > define list of buffers to be opened automatically > log.md, config.el,
+;;etc...
+(setq default_buffers (list "log/src/chaos.org" "dotfiles/emacs/config.el"))
+    ;; (find-file-noselect ) loop overfiles with 'dolist' and open silently
+(ibuffer)
+(global-set-key (kbd "C-; b") 'ibuffer)
 
 ;; Appearance
 ;; ------------------------------------------------------------
 ;; no bell
 (setq ring-bell-function 'ignore)
 
-;; @TODO - > Themes
-(load "C:/Users/roum5/source/dotfiles/emacs/molokai-theme.el")
-(load "C:/Users/roum5/source/dotfiles/emacs/oldlace-theme.el")
-(load-theme 'molokai t)
+;; themes
+(add-to-list 'custom-theme-load-path "~/src/dotfiles/emacs/themes/")
+(load-theme 'badwolf t)
 
 ;; some highlighting of keywords
 (global-hi-lock-mode 1)
@@ -51,10 +52,51 @@
 ;;(set-frame-font "Hack 10" nil t)
 
 ;; does not display line numbers by default
-;; toggle with keybinding C-= l
 (global-linum-mode 1)
 (global-set-key (kbd "C-; l") 'global-linum-mode)
 
+;; Dired
+;; ------------------------------------------------------------
+(setq dired-listing-switches "-l --group-directories-first")
+;;@TODO setup keybind for open-with and specify app
+;; use external app to open file from dired
+;; taken from xah lee
+(defun xah-open-in-external-app (&optional @fname)
+  "Open the current file or dired marked files in external app.
+When called in emacs lisp, if @fname is given, open that.
+URL `http://ergoemacs.org/emacs/emacs_dired_open_file_in_ext_apps.html'
+Version 2019-11-04 2021-02-16"
+  (interactive)
+  (let* (
+         ($file-list
+          (if @fname
+              (progn (list @fname))
+            (if (string-equal major-mode "dired-mode")
+                (dired-get-marked-files)
+              (list (buffer-file-name)))))
+         ($do-it-p (if (<= (length $file-list) 5)
+                       t
+                     (y-or-n-p "Open more than 5 files? "))))
+    (when $do-it-p
+      (cond
+       ((string-equal system-type "windows-nt")
+        (mapc
+         (lambda ($fpath)
+           (shell-command (concat "PowerShell -Command \"Invoke-Item -LiteralPath\" " "'" (shell-quote-argument (expand-file-name $fpath )) "'")))
+         $file-list))
+       ((string-equal system-type "darwin")
+        (mapc
+         (lambda ($fpath)
+           (shell-command
+            (concat "open " (shell-quote-argument $fpath))))  $file-list))
+       ((string-equal system-type "gnu/linux")
+        (mapc
+         (lambda ($fpath) (let ((process-connection-type nil))
+                            (start-process "" nil "xdg-open" $fpath))) $file-list))))))
+(define-key dired-mode-map (kbd "C-; o") 'xah-open-in-external-app)
+(add-hook 'dired-mode-hook
+	  (lambda ()
+	    (dired-hide-details-mode)))
 
 ;; Backup
 ;; ------------------------------------------------------------
@@ -82,9 +124,7 @@
 
 ;; Buffer
 ;; ------------------------------------------------------------
-;; maybe put this as use-package for future?
-
-;; some standards settings to begin with
+;; snome standards settings to begin with
 ;; some more default settings to get started
 
 
@@ -96,15 +136,14 @@
 ;; Editing
 ;; ------------------------------------------------------------
 ;; bindings for easier paragraph movement
-;;(global-set-key (kbd "M-p") 'backward-paragraph)
-;;(global-set-key (kbd "M-n") 'forward-paragraph)
-(load "C:/Users/roum5/source/dotfiles/emacs/mr-editing.el")
+(load "~/src/dotfiles/emacs/mr-editing.el")
 
 ;; Indent with of four and use tab to allow indentation
 ;; use M-i to insert tab
-(setq-default tab-width 4
-	indent-tabs-mode t)
+(setq-default tab-width 4 indent-tabs-mode t)
 
+;; @TODO write clean up macro for editing pdf text (clean-up for various glyphs
+;; and whitespace)
 
 ;; Autrowrap 120
 ;; still not working well, also does not matter all that much anyways (just use a
@@ -116,9 +155,7 @@
 (setq auto-fill-mode t)
 
 
-;; Dired
-;; ------------------------------------------------------------
-(setq dired-listing-switches "-l --group-directories-first")
+
 
 ;; Eshell
 ;; ------------------------------------------------------------
@@ -146,15 +183,17 @@
 
 ;; Programming
 ;; ------------------------------------------------------------
-;; @TODO Snippets
+;; @TODO Snippets (see the .el file which allows to customize snippets manually)
 ;; @TODO Syntax checking for all modes?
 ;; @TODO Setup autocomplete C-; K
 ;; @TODO CTags view and Ag setup for code navigation
 ;; @TODO customize Ibuffer and Occur behaviour to improve code navigation and refactoring
 ;; @TODO customize Icomplete, Ido mode
 (global-set-key (kbd "C-; k") 'dabbrev-expand)
+(icomplete-mode t)
 
 ;; python mode
+;; @TODO black formatting and reload upon save
 (add-hook 'python-mode-hook
     (lambda ()
 	    (setq-default indent-tabs-mode nil)
