@@ -6,15 +6,28 @@
 ;; Startup
 ;; ------------------------------------------------------------
 (setq inhibit-startup-screen t)
-(cd "~/src/")
 (split-window-right)
-;;@TODO add a favorites buffer list
+;;@TODO
+;;> pubsearch.el -- desired functionalities: pubsearch integration (browse pubmed, arxiv abstracts with associated bibtex citation for easy import)
+;;> case study presentation build script (case.el)
+;;> setup org agenda
+;;> setup snippets
+;;> pomodoro mode
+;;@BUG -- change homedir path based on the OS
+;; add a favorites buffer list
 ;; > define list of buffers to be opened automatically > log.md, config.el,
 ;;etc...
-(setq default_buffers (list "log/src/chaos.org" "dotfiles/emacs/config.el"))
-    ;; (find-file-noselect ) loop overfiles with 'dolist' and open silently
+;; concat files to homedir
+(setq source_dir "~/src/")
+(setq file_list (list 
+		 "log/src/orthodontics.org"
+		 "log/src/chaos.org"
+		 "dotfiles/emacs/config.el"))
+(setq default_buffers (mapcar (lambda (x) (concat source_dir x)) file_list))
+(mapcar 'find-file-noselect default_buffers);; loop overfiles with 'dolist' and open silently
 (ibuffer)
 (global-set-key (kbd "C-; b") 'ibuffer)
+(cd source_dir)
 
 ;; Appearance
 ;; ------------------------------------------------------------
@@ -52,7 +65,7 @@
 ;;(set-frame-font "Hack 10" nil t)
 
 ;; does not display line numbers by default
-(global-linum-mode 1)
+;;(global-linum-mode 1)
 (global-set-key (kbd "C-; l") 'global-linum-mode)
 
 ;; Dired
@@ -93,10 +106,11 @@ Version 2019-11-04 2021-02-16"
         (mapc
          (lambda ($fpath) (let ((process-connection-type nil))
                             (start-process "" nil "xdg-open" $fpath))) $file-list))))))
-(define-key dired-mode-map (kbd "C-; o") 'xah-open-in-external-app)
+(eval-after-load "dired" '(progn
+			    (define-key dired-mode-map (kbd "C-; o") 'xah-open-in-external-app) ))
 (add-hook 'dired-mode-hook
 	  (lambda ()
-	    (dired-hide-details-mode)))
+	    (dired-hide-details-mode) ))
 
 ;; Backup
 ;; ------------------------------------------------------------
