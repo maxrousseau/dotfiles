@@ -9,22 +9,23 @@
 (split-window-right)
 ;;@TODO
 ;;> pubsearch.el -- desired functionalities: pubsearch integration (browse pubmed, arxiv abstracts with associated bibtex citation for easy import)
-;;> case study presentation build script (case.el)
+;;> case study presentation build script (case.el, use pynoter for ppt?, user beamer for academia)
+;;> french and english spellchecker *PRIORITY*
 ;;> setup org agenda
 ;;> setup snippets
 ;;> pomodoro mode
 ;;@BUG -- change homedir path based on the OS
 ;; add a favorites buffer list
 ;; > define list of buffers to be opened automatically > log.md, config.el,
-;;etc...
-;; concat files to homedir
+
+;; Startup emacs in the source directory and open the default buffers.
 (setq source_dir "~/src/")
 (setq file_list (list 
 		 "log/src/orthodontics.org"
 		 "log/src/chaos.org"
 		 "dotfiles/emacs/config.el"))
-(setq default_buffers (mapcar (lambda (x) (concat source_dir x)) file_list))
-(mapcar 'find-file-noselect default_buffers);; loop overfiles with 'dolist' and open silently
+(setq default_buffers (mapcar (lambda (x) (concat source_dir x)) file_list)) ;; concatenate to file-list
+(mapcar 'find-file-noselect default_buffers);; open silently all default buffers
 (ibuffer)
 (global-set-key (kbd "C-; b") 'ibuffer)
 (cd source_dir)
@@ -67,6 +68,17 @@
 ;; does not display line numbers by default
 ;;(global-linum-mode 1)
 (global-set-key (kbd "C-; l") 'global-linum-mode)
+
+;; Org
+;; ------------------------------------------------------------
+(setq org-agenda-files (list (car default_buffers)))
+(setq org-log-done t)
+(eval-after-load "org" '(progn
+			    (define-key org-mode-map (kbd "C-c a") 'org-agenda) ))
+;;
+;; M-x ielm for the elisp repl
+
+
 
 ;; Dired
 ;; ------------------------------------------------------------
@@ -193,7 +205,7 @@ Version 2019-11-04 2021-02-16"
 			(propertize "]")
 			(propertize "\n")
 			(propertize "> "))))
-(global-set-key (kbd "C-; b") 'bat_build)
+(global-set-key (kbd "C-; B") 'bat_build) 
 
 ;; Programming
 ;; ------------------------------------------------------------
