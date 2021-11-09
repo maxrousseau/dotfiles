@@ -11,6 +11,11 @@
 ;;
 ;; ================================================================================
 ;;
+
+<<<<<<< HEAD
+;; Startup emacs in the source directory and open the default buffers.
+(setq source_dir "C:\\Users\\roum5\\source\\")
+=======
 ;; Packages:
 ;;	Yasnippets
 ;;	Company (elpa) python-jedi
@@ -20,9 +25,7 @@
 ;; User defined default variables
 ;; ------------------------------------------------------------
 (setq source_dir "~/src/")
-;; Startup emacs in the source directory and open the default buffers.
-;; windows
-;; (setq source_dir "C:\\Users\\roum5\\source\\")
+>>>>>>> 634baf7810208cf66b2175d81dd0e931a1476182
 (setq file_list (list
 		 "log/src/orthodontics.org"
 		 "log/src/chaos.org"
@@ -52,12 +55,24 @@
 
 ;; Appearance
 ;; ------------------------------------------------------------
-;; @TODO - whitespace and tab view
 ;; no bell
-;; themes
-(add-to-list 'custom-theme-load-path (concat source_dir "dotfiles/emacs/themes/"))
 (setq ring-bell-function 'ignore)
+<<<<<<< HEAD
+
+;; themes
+
+(add-to-list 'custom-theme-load-path (concat source_dir "dotfiles/emacs/themes/"))
+(load-theme 'oldlace t)
+=======
+;; @TODO - whitespace and tab view
+;; themes @BUG - find a better light theme
+;; aspropriate -- https://github.com/waymondo/apropospriate-theme
+;; modus-operandi -- https://gitlab.com/protesilaos/modus-themes
+;; feng-shui -- https://github.com/emacs-jp/replace-colorthemes/blob/master/feng-shui-theme.el
+;; dracula -- https://github.com/dracula/emacs
+(add-to-list 'custom-theme-load-path "~/src/dotfiles/emacs/themes/")
 (load-theme 'habamax t)
+>>>>>>> 634baf7810208cf66b2175d81dd0e931a1476182
 
 ;; some highlighting of keywords
 (global-hi-lock-mode 1)
@@ -82,26 +97,48 @@
 (scroll-bar-mode -1)
 
 ;; dope bitmap fonts
-;; set-frame-font "Spleen 32x64 12" nil t)
+(set-frame-font "Spleen 32x64 12" nil t)
+<<<<<<< HEAD
+;; more normal hack font...
+(set-frame-font "Hack 10" nil t)
+
+;; does not display line numbers by default
+;;(global-linum-mode 1)
+(global-set-key (kbd "C-; l") 'linum-mode)
+=======
 ;;(set-frame-font "scientifica 12" nil t)
 ;; add gnu unifont
 ;; more normal fonts...
 ;;(set-frame-font "Hack 10" nil t)
 (set-frame-font "Iosevka 11" nil t)
 ;;(set-frame-font "IBMPlexMono 10" nil t)
+;; add isoveka font
+
 
 ;; does not display line numbers by default, ps: linum-mode is very slow
 (setq display-line-numbers-type 'visual)
 (global-set-key (kbd "C-; l") 'display-line-numbers-mode)
+>>>>>>> 634baf7810208cf66b2175d81dd0e931a1476182
 
 ;; Org
 ;; ------------------------------------------------------------
 (setq org-agenda-files (list (car default_buffers)))
 (setq org-log-done t)
 (eval-after-load "org" '(progn
+<<<<<<< HEAD
 			    (define-key org-mode-map (kbd "C-c a") 'org-agenda) ))
+;;
 ;; M-x ielm for the elisp repl
 ;; @TODO keybinding for dired-at-point for folders
+=======
+						  (define-key org-mode-map (kbd "C-c a") 'org-agenda) ))
+;;@TODO setup an org today mode where I can see
+;;- my tasks for the day
+;;- what I did/clocked in and out
+;;@TODO:: embed link to PDF with page bookmarked
+
+;; literate programming in python
+>>>>>>> 634baf7810208cf66b2175d81dd0e931a1476182
 
 (setq org-image-actual-width nil) ;;To set image scale
 
@@ -193,13 +230,17 @@ Version 2019-11-04 2021-02-16"
 ;; Editing
 ;; ------------------------------------------------------------
 ;; bindings for easier paragraph movement
+<<<<<<< HEAD
+(load (concat source_dir "dotfiles/emacs/mr-editing.el"))
+=======
 ;; @TODO allow for easier intra-line and inter-line navigation, either use snipe
 ;; or copy similar behaviour M-f, M-b is not good @NOTE - imenu-ido-symbol mode
 ;; looks like a good hack, try that first (https://www.emacswiki.org/emacs/idomenu.el)
+(load "~/src/dotfiles/emacs/mr-editing.el")
 ;; @TODO CTags view and Ag setuup for code navigation
 ;; @TODO customize Ibuffer and Occur behaviour to improve code navigation and refactoring
 ;; @TODO bookmark key binding to navigate code (add, list and delete/clear)
-(load (concat source_dir "dotfiles/emacs/mr-editing.el"))
+>>>>>>> 634baf7810208cf66b2175d81dd0e931a1476182
 
 ;; Indent with of four and use tab to allow indentation
 ;; use M-i to insert tab
@@ -260,8 +301,13 @@ Version 2019-11-04 2021-02-16"
 			(propertize "]")
 			(propertize "\n")
 			(propertize "> "))))
+<<<<<<< HEAD
+;;(global-set-key (kbd "C-; B") 'bat_build)
+(setq eshell-prompt-regexp "[^@^]\n> ")
+=======
 ;; @TODO figure out how to fix eshell read-only mode
 (global-set-key (kbd "C-; B") 'bat_build)
+>>>>>>> 634baf7810208cf66b2175d81dd0e931a1476182
 
 ;; Programming
 ;; ------------------------------------------------------------
@@ -281,6 +327,25 @@ Version 2019-11-04 2021-02-16"
 	    (setq-default tab-width 4)
 	    (setq-default py-indent-tabs-mode t)
 <<<<<<< HEAD
+        (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
+;; How to load ipython with these commands and
+;; %load_ext autoreload
+;; %autoreload 2
+;; -----
+;; python-check with black on save
+
+
+;; Common lisp
+;;@TODO figure out a way to setup good parenthesis editing
+
+;; SLIME for common lisp
+(load (expand-file-name "C:/Users/roum5/quicklisp/slime-helper.el"))
+;; Replace "sbcl" with the path to your implementation
+(setq inferior-lisp-program "C:/Users/roum5/lisp/sbcl/sbcl")
+=======
 		(add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
 
@@ -311,21 +376,4 @@ Version 2019-11-04 2021-02-16"
 (ibuffer)
 (global-set-key (kbd "C-; b") 'ibuffer)
 (cd source_dir)
-        (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
-
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
-;; How to load ipython with these commands and
-;; %load_ext autoreload
-;; %autoreload 2
-;; -----
-;; python-check with black on save
-
-
-;; Common lisp
-;;@TODO figure out a way to setup good parenthesis editing
-
-;; SLIME for common lisp
-(load (expand-file-name "C:/Users/roum5/quicklisp/slime-helper.el"))
-;; Replace "sbcl" with the path to your implementation
-(setq inferior-lisp-program "C:/Users/roum5/lisp/sbcl/sbcl")
+>>>>>>> 634baf7810208cf66b2175d81dd0e931a1476182
