@@ -162,10 +162,5 @@ stty -ixoff
 # virtualenv
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=$HOME/.virtualenvs
-source $HOME/.local/bin/virtualenvwrapper.sh
+#source $HOME/.local/bin/virtualenvwrapper.sh
 
-# poetry path
-source /home/max/.poetry/env
-
-# nim path
-export PATH=/home/max/.nimble/bin:$PATH

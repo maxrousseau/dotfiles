@@ -17,7 +17,6 @@
 ;;@BUG -- change homedir path based on the OS
 ;; add a favorites buffer list
 ;; > define list of buffers to be opened automatically > log.md, config.el,
-
 ;; Startup emacs in the source directory and open the default buffers.
 (setq source_dir "~/src/")
 (setq file_list (list 
@@ -30,11 +29,27 @@
 (global-set-key (kbd "C-; b") 'ibuffer)
 (cd source_dir)
 
+;; Evil-mode (because otherwise i'll be getting cubital tunnel)
+;; ------------------------------------------------------------
+(add-to-list 'load-path "~/src/dotfiles/emacs/evil")
+(require 'evil)
+(evil-mode 1)
+(add-to-list 'load-path "~/src/dotfiles/emacs/evil-org-mode")
+(require 'evil-org)
+(add-hook 'org-mode-hook 'evil-org-mode)
+(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+(require 'evil-org-agenda)
+(evil-org-agenda-set-keys)
+(blink-cursor-mode -1) ;; @BUG -  disable cursor blinking or evil mode in the doc-view buffer, cursor blinking disabled completely
+;; @TODO set evil keybindings with local leader for common commands
+;; @TODO improve window switching keybindings
+;; @TODO setup undo-redo commands
+
 ;; Appearance
 ;; ------------------------------------------------------------
 ;; no bell
 (setq ring-bell-function 'ignore)
-
+;; @TODO - whitespace and tab view
 ;; themes
 (add-to-list 'custom-theme-load-path "~/src/dotfiles/emacs/themes/")
 (load-theme 'badwolf t)
@@ -42,11 +57,12 @@
 ;; some highlighting of keywords
 (global-hi-lock-mode 1)
 (defun meta_highlight()
+  (interactive)
   "highlight todos, notes and more"
   (highlight-regexp "@TODO" 'hi-pink)
   (highlight-regexp "@BUG" 'hi-red)
   (highlight-regexp "@REFACTOR" 'hi-green)
-  (highlight-regexp "@DONE" 'hi-blue)) ;;not working
+  (highlight-regexp "@NOTE" 'hi-blue))
 (add-hook 'find-file-hook (lambda () (meta_highlight)))
 
 ;; This status line is not great, improve on clarity of information displayed.
@@ -61,23 +77,24 @@
 (scroll-bar-mode -1)
 
 ;; dope bitmap font
-(set-frame-font "Spleen 32x64 12" nil t)
+;;(set-frame-font "Spleen 32x64 12" nil t)
 ;; more normal hack font...
-;;(set-frame-font "Hack 10" nil t)
+(set-frame-font "Hack 10" nil t)
 
 ;; does not display line numbers by default
 ;;(global-linum-mode 1)
-(global-set-key (kbd "C-; l") 'global-linum-mode)
+(global-set-key (kbd "C-; l") 'linum-mode)
 
 ;; Org
 ;; ------------------------------------------------------------
 (setq org-agenda-files (list (car default_buffers)))
 (setq org-log-done t)
 (eval-after-load "org" '(progn
-			    (define-key org-mode-map (kbd "C-c a") 'org-agenda) ))
-;;
-;; M-x ielm for the elisp repl
-
+						  (define-key org-mode-map (kbd "C-c a") 'org-agenda) ))
+;;@TODO setup an org today mode where I can see
+;;- my tasks for the day
+;;- what I did/clocked in and out
+;;@TODO:: embed link to PDF with page bookmarked
 
 
 ;; Dired
@@ -162,7 +179,13 @@ Version 2019-11-04 2021-02-16"
 ;; Editing
 ;; ------------------------------------------------------------
 ;; bindings for easier paragraph movement
+;; @TODO allow for easier intra-line and inter-line navigation, either use snipe
+;; or copy similar behaviour M-f, M-b is not good @NOTE - imenu-ido-symbol mode
+;; looks like a good hack, try that first (https://www.emacswiki.org/emacs/idomenu.el)
 (load "~/src/dotfiles/emacs/mr-editing.el")
+;; @TODO CTags view and Ag setuup for code navigation
+;; @TODO customize Ibuffer and Occur behaviour to improve code navigation and refactoring
+;; @TODO bookmark key binding to navigate code (add, list and delete/clear)
 
 ;; Indent with of four and use tab to allow indentation
 ;; use M-i to insert tab
@@ -182,13 +205,11 @@ Version 2019-11-04 2021-02-16"
 
 
 
-
 ;; Eshell
 ;; ------------------------------------------------------------
 ;; minibuffer command
 (global-set-key (kbd "C-; e") 'eshell)
 (global-set-key (kbd "C-; M-e") 'eshell-command)
-
 ;; todo make the output of the command open in a new frame
 ;; run and build commands
 (defun bat_build()
@@ -205,6 +226,7 @@ Version 2019-11-04 2021-02-16"
 			(propertize "]")
 			(propertize "\n")
 			(propertize "> "))))
+;; @TODO figure out how to fix eshell read-only mode
 (global-set-key (kbd "C-; B") 'bat_build) 
 
 ;; Programming
@@ -212,9 +234,7 @@ Version 2019-11-04 2021-02-16"
 ;; @TODO Snippets (see the .el file which allows to customize snippets manually)
 ;; @TODO Syntax checking for all modes?
 ;; @TODO Setup autocomplete C-; K
-;; @TODO CTags view and Ag setup for code navigation
-;; @TODO customize Ibuffer and Occur behaviour to improve code navigation and refactoring
-;; @TODO customize Icomplete, Ido mode
+
 (global-set-key (kbd "C-; k") 'dabbrev-expand)
 (icomplete-mode t)
 
@@ -225,4 +245,8 @@ Version 2019-11-04 2021-02-16"
 	    (setq-default indent-tabs-mode nil)
 	    (setq-default tab-width 4)
 	    (setq-default py-indent-tabs-mode t)
-    (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+		(add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+
+
+
+
