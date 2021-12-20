@@ -4,6 +4,12 @@
 [submodule "emacs/geiser"]
 	path = emacs/geiser
 	url = https://github.com/emacsmirror/geiser
-[submodule "emacs/themes/modus-themes"]
-	path = emacs/themes/modus-themes
-	url = https://gitlab.com/protesilaos/modus-themes.git
+[submodule "emacs/evil-leader"]
+	path = emacs/evil-leader
+	url = https://github.com/cofi/evil-leader.git
+[submodule "emacs/evil-org-mode"]
+	path = emacs/evil-org-mode
+	url = https://github.com/Somelauw/evil-org-mode.git
+[submodule "emacs/evil"]
+	path = emacs/evil
+	url = https://github.com/emacs-evil/evil.git
