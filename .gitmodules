@@ -1,0 +1,9 @@
+[submodule "emacs/racket"]
+	path = emacs/racket
+	url = https://gitlab.com/emacs-geiser/racket.git
+[submodule "emacs/geiser"]
+	path = emacs/geiser
+	url = https://github.com/emacsmirror/geiser
+[submodule "emacs/themes/modus-themes"]
+	path = emacs/themes/modus-themes
+	url = https://gitlab.com/protesilaos/modus-themes.git

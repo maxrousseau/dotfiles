@@ -1,58 +1,62 @@
 ;; Vanilla emacs config
 ;;		> no third party packages to be downloaded from melpa
 ;;		> all sources must be self contianed in this directory
+;;      > use git-submodule to make it easily portable
 ;; Maxime Rousseau
 ;;
-;; Startup
+;;             /\
+;; /vvvvvvvvvvvv \--------------------------------------,
+;; `^^^^^^^^^^^^ /====================================="
+;;             \/
+;;
+;; ================================================================================
+;;
+;; User defined default variables
 ;; ------------------------------------------------------------
-(setq inhibit-startup-screen t)
-(split-window-right)
-;;@TODO
-;;> pubsearch.el -- desired functionalities: pubsearch integration (browse pubmed, arxiv abstracts with associated bibtex citation for easy import)
-;;> case study presentation build script (case.el, use pynoter for ppt?, user beamer for academia)
-;;> french and english spellchecker *PRIORITY*
-;;> setup org agenda
-;;> setup snippets
-;;> pomodoro mode
-;;@BUG -- change homedir path based on the OS
-;; add a favorites buffer list
-;; > define list of buffers to be opened automatically > log.md, config.el,
-;; Startup emacs in the source directory and open the default buffers.
 (setq source_dir "~/src/")
-(setq file_list (list 
+(setq file_list (list
 		 "log/src/orthodontics.org"
 		 "log/src/chaos.org"
 		 "dotfiles/emacs/config.el"))
 (setq default_buffers (mapcar (lambda (x) (concat source_dir x)) file_list)) ;; concatenate to file-list
-(mapcar 'find-file-noselect default_buffers);; open silently all default buffers
-(ibuffer)
-(global-set-key (kbd "C-; b") 'ibuffer)
-(cd source_dir)
-
 ;; Evil-mode (because otherwise i'll be getting cubital tunnel)
 ;; ------------------------------------------------------------
+;; @TODO set evil keybindings with local leader for common commands
+;; @TODO improve window switching keybindings
+;; @TODO setup undo-redo commands
+;; remap these asap > (other-window), (switch-to-buffer), etc
+(add-to-list 'load-path "~/src/dotfiles/emacs/evil-leader")
 (add-to-list 'load-path "~/src/dotfiles/emacs/evil")
+(add-to-list 'load-path "~/src/dotfiles/emacs/evil-org-mode")
+(require 'evil-leader)
+(global-evil-leader-mode)
+(evil-leader/set-leader "SPC")
+(evil-leader/set-key
+  "f" 'find-file
+  "b" 'switch-to-buffer
+  "o" 'other-window)
+
 (require 'evil)
 (evil-mode 1)
-(add-to-list 'load-path "~/src/dotfiles/emacs/evil-org-mode")
 (require 'evil-org)
 (add-hook 'org-mode-hook 'evil-org-mode)
 (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
 (require 'evil-org-agenda)
 (evil-org-agenda-set-keys)
 (blink-cursor-mode -1) ;; @BUG -  disable cursor blinking or evil mode in the doc-view buffer, cursor blinking disabled completely
-;; @TODO set evil keybindings with local leader for common commands
-;; @TODO improve window switching keybindings
-;; @TODO setup undo-redo commands
 
 ;; Appearance
 ;; ------------------------------------------------------------
 ;; no bell
 (setq ring-bell-function 'ignore)
 ;; @TODO - whitespace and tab view
-;; themes
+;; themes @BUG - find a better light theme
+;; aspropriate -- https://github.com/waymondo/apropospriate-theme
+;; modus-operandi -- https://gitlab.com/protesilaos/modus-themes
+;; feng-shui -- https://github.com/emacs-jp/replace-colorthemes/blob/master/feng-shui-theme.el
+;; dracula -- https://github.com/dracula/emacs
 (add-to-list 'custom-theme-load-path "~/src/dotfiles/emacs/themes/")
-(load-theme 'badwolf t)
+(load-theme 'habamax t)
 
 ;; some highlighting of keywords
 (global-hi-lock-mode 1)
@@ -76,10 +80,15 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-;; dope bitmap font
+;; dope bitmap fonts
 ;;(set-frame-font "Spleen 32x64 12" nil t)
-;; more normal hack font...
-(set-frame-font "Hack 10" nil t)
+;;(set-frame-font "scientifica 12" nil t)
+;; add gnu unifont
+;; more normal fonts...
+;;(set-frame-font "Hack 10" nil t)
+(set-frame-font "IBMPlexMono 10" nil t)
+;; add isoveka font
+
 
 ;; does not display line numbers by default
 ;;(global-linum-mode 1)
@@ -95,6 +104,8 @@
 ;;- my tasks for the day
 ;;- what I did/clocked in and out
 ;;@TODO:: embed link to PDF with page bookmarked
+
+;; literate programming in python
 
 
 ;; Dired
@@ -227,7 +238,7 @@ Version 2019-11-04 2021-02-16"
 			(propertize "\n")
 			(propertize "> "))))
 ;; @TODO figure out how to fix eshell read-only mode
-(global-set-key (kbd "C-; B") 'bat_build) 
+(global-set-key (kbd "C-; B") 'bat_build)
 
 ;; Programming
 ;; ------------------------------------------------------------
@@ -248,5 +259,30 @@ Version 2019-11-04 2021-02-16"
 		(add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
 
+;; lisp
+;; schemes - Racket
+(add-to-list 'load-path "~/src/dotfiles/emacs/geiser/elisp")
+(add-to-list 'load-path "~/src/dotfiles/emacs/racket")
+(require 'geiser-racket)
+(setq geiser-racket-binary "~/racket/bin/racket")
 
 
+;; Startup
+;; ------------------------------------------------------------
+(setq inhibit-startup-screen t)
+(split-window-right)
+;;@TODO
+;;> pubsearch.el -- desired functionalities: pubsearch integration (browse pubmed, arxiv abstracts with associated bibtex citation for easy import)
+;;> case study presentation build script (case.el, use pynoter for ppt?, user beamer for academia)
+;;> french and english spellchecker *PRIORITY*
+;;> setup org agenda
+;;> setup snippets
+;;> pomodoro mode
+;;@BUG -- change homedir path based on the OS
+;; add a favorites buffer list
+;; > define list of buffers to be opened automatically > log.md, config.el,
+;; Startup emacs in the source directory and open the default buffers.
+(mapcar 'find-file-noselect default_buffers);; open silently all default buffers
+(buffer-menu)
+(global-set-key (kbd "C-; b") 'ibuffer)
+(cd source_dir)
