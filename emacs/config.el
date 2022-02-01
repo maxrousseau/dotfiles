@@ -56,7 +56,7 @@
 ;; feng-shui -- https://github.com/emacs-jp/replace-colorthemes/blob/master/feng-shui-theme.el
 ;; dracula -- https://github.com/dracula/emacs
 (add-to-list 'custom-theme-load-path "~/src/dotfiles/emacs/themes/")
-(load-theme 'habamax t)
+(load-theme 'molokai t)
 
 ;; some highlighting of keywords
 (global-hi-lock-mode 1)
@@ -81,18 +81,18 @@
 (scroll-bar-mode -1)
 
 ;; dope bitmap fonts
-;;(set-frame-font "Spleen 32x64 12" nil t)
+(set-frame-font "Spleen 32x64 12" nil t)
 ;;(set-frame-font "scientifica 12" nil t)
 ;; add gnu unifont
 ;; more normal fonts...
 ;;(set-frame-font "Hack 10" nil t)
-(set-frame-font "IBMPlexMono 10" nil t)
+;;(set-frame-font "IBMPlexMono 10" nil t)
 ;; add isoveka font
 
 
-;; does not display line numbers by default
-;;(global-linum-mode 1)
-(global-set-key (kbd "C-; l") 'linum-mode)
+;; does not display line numbers by default, ps: linum-mode is very slow
+(setq display-line-numbers-type 'visual)
+(global-set-key (kbd "C-; l") 'display-line-numbers-mode)
 
 ;; Org
 ;; ------------------------------------------------------------
@@ -106,6 +106,16 @@
 ;;@TODO:: embed link to PDF with page bookmarked
 
 ;; literate programming in python
+
+(setq org-image-actual-width nil) ;;To set image scale
+
+;; beamer setup
+;; @BUG - currently haven't been able to work out a proper latex or beamer
+;; template for documents in org-mode
+;; okay I have a template that seems stable-ish
+;; kybind for -- org-beamer-select-environment
+(add-hook 'org-beamer-mode-hook
+		  (lambda () (local-set-key (kbd "C-; e") 'org-beamer-select-environment)))
 
 
 ;; Dired
