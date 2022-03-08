@@ -13,3 +13,6 @@
 [submodule "emacs/evil"]
 	path = emacs/evil
 	url = https://github.com/emacs-evil/evil.git
+[submodule "emacs/swiper"]
+	path = emacs/swiper
+	url = https://github.com/abo-abo/swiper

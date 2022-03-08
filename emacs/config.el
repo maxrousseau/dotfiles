@@ -11,6 +11,13 @@
 ;;
 ;; ================================================================================
 ;;
+
+;; Packages:
+;;	Yasnippets
+;;	Company (elpa) python-jedi
+;;	Swiper, ivy, counsel (elpa)
+;;	Evil,
+
 ;; User defined default variables
 ;; ------------------------------------------------------------
 (setq source_dir "~/src/")
@@ -31,10 +38,6 @@
 (require 'evil-leader)
 (global-evil-leader-mode)
 (evil-leader/set-leader "SPC")
-(evil-leader/set-key
-  "f" 'find-file
-  "b" 'switch-to-buffer
-  "o" 'other-window)
 
 (require 'evil)
 (evil-mode 1)
@@ -56,7 +59,7 @@
 ;; feng-shui -- https://github.com/emacs-jp/replace-colorthemes/blob/master/feng-shui-theme.el
 ;; dracula -- https://github.com/dracula/emacs
 (add-to-list 'custom-theme-load-path "~/src/dotfiles/emacs/themes/")
-(load-theme 'molokai t)
+(load-theme 'habamax t)
 
 ;; some highlighting of keywords
 (global-hi-lock-mode 1)
@@ -86,6 +89,7 @@
 ;; add gnu unifont
 ;; more normal fonts...
 ;;(set-frame-font "Hack 10" nil t)
+(set-frame-font "Iosevka 11" nil t)
 ;;(set-frame-font "IBMPlexMono 10" nil t)
 ;; add isoveka font
 
@@ -188,13 +192,10 @@ Version 2019-11-04 2021-02-16"
 
 ;; Buffer
 ;; ------------------------------------------------------------
-;; snome standards settings to begin with
-;; some more default settings to get started
-
-
 ;; some other kbd
 (global-set-key (kbd "C-; n") 'make-frame)
 (global-set-key (kbd "C-; c") 'delete-frame)
+
 
 
 ;; Editing
@@ -224,6 +225,25 @@ Version 2019-11-04 2021-02-16"
 (setq-default fill-column 80)
 (setq auto-fill-mode t)
 
+;; swiper setup
+(add-to-list 'load-path "~/src/dotfiles/emacs/swiper")
+(require 'ivy)
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
+;; @TODO setup keybindings
+;;@BUG this requires counsel to be installed (M-x package-install counsel from elpa)
+(evil-global-set-key 'normal (kbd "/") 'swiper-isearch)
+(evil-global-set-key 'insert (kbd "TAB") 'dabbrev-completion)
+(global-set-key (kbd "C-s") 'swiper-isearch)
+(evil-global-set-key 'normal (kbd "/") 'swiper-isearch)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+
+
+(evil-leader/set-key
+  "f" 'counsel-find-file
+  "b" 'ivy-switch-buffer
+  "o" 'other-window)
 
 
 ;; Eshell
@@ -253,9 +273,10 @@ Version 2019-11-04 2021-02-16"
 ;; Programming
 ;; ------------------------------------------------------------
 ;; @TODO Snippets (see the .el file which allows to customize snippets manually)
+
+
 ;; @TODO Syntax checking for all modes?
 ;; @TODO Setup autocomplete C-; K
-
 (global-set-key (kbd "C-; k") 'dabbrev-expand)
 (icomplete-mode t)
 
@@ -293,6 +314,6 @@ Version 2019-11-04 2021-02-16"
 ;; > define list of buffers to be opened automatically > log.md, config.el,
 ;; Startup emacs in the source directory and open the default buffers.
 (mapcar 'find-file-noselect default_buffers);; open silently all default buffers
-(buffer-menu)
+(ibuffer)
 (global-set-key (kbd "C-; b") 'ibuffer)
 (cd source_dir)
