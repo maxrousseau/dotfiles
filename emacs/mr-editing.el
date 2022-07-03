@@ -64,7 +64,3 @@
 (global-set-key (kbd "C-; d") 'mr-delete-word)
 (global-set-key (kbd "C-; D") 'mr-delete-line)
 ;;(global-set-key (kbd "C-d a") 'mr-delete-to-begining-line)
-
-;; Movement keybindings
-(global-set-key (kbd "M-p") 'backward-paragraph)
-(global-set-key (kbd "M-n") 'forward-paragraph)

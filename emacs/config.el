@@ -13,16 +13,16 @@
 ;;
 ;; Packages:
 ;;	Yasnippets
-;;	Company (elpa) python-jedi
+;;	Company (elpa), python-jedi
 ;;	Swiper, ivy, counsel (elpa)
 ;;	Evil,
-
+;;
 ;; User defined default variables
 ;; ------------------------------------------------------------
-(setq source_dir "~/src/")
+;; (setq source_dir "~/src/")
 ;; Startup emacs in the source directory and open the default buffers.
 ;; windows
-;; (setq source_dir "C:\\Users\\roum5\\source\\")
+(setq source_dir "C:\\Users\\roum5\\source\\")
 (setq file_list (list
 		 "log/src/orthodontics.org"
 		 "log/src/chaos.org"
@@ -33,10 +33,16 @@
 ;; @TODO set evil keybindings with local leader for common commands
 ;; @TODO improve window switching keybindings
 ;; @TODO setup undo-redo commands
-;; remap these asap > (other-window), (switch-to-buffer), etc
-(add-to-list 'load-path "~/src/dotfiles/emacs/evil-leader")
-(add-to-list 'load-path "~/src/dotfiles/emacs/evil")
-(add-to-list 'load-path "~/src/dotfiles/emacs/evil-org-mode")
+;; @TODO olivetti mode
+;; @TODO emojis
+;; @TODO static website in org=mode (custom html/css export)
+;; @TODO remap these asap > (other-window), (switch-to-buffer), etc
+(add-to-list 'load-path "C:/Users/roum5/source/dotfiles/emacs/evil-leader")
+(add-to-list 'load-path "C:/Users/roum5/source/dotfiles/emacs/evil")
+(add-to-list 'load-path "C:/Users/roum5/source/dotfiles/emacs/evil-org-mode")
+(add-to-list 'load-path "C:/Users/roum5/source/dotfiles/emacs/swiper")
+(add-to-list 'load-path "C:/Users/roum5/source/dotfiles/emacs/themes/")
+
 (require 'evil-leader)
 (global-evil-leader-mode)
 (evil-leader/set-leader "SPC")
@@ -57,7 +63,7 @@
 ;; themes
 (add-to-list 'custom-theme-load-path (concat source_dir "dotfiles/emacs/themes/"))
 (setq ring-bell-function 'ignore)
-(load-theme 'habamax t)
+(load-theme 'dracula t)
 
 ;; some highlighting of keywords
 (global-hi-lock-mode 1)
@@ -66,7 +72,7 @@
   "highlight todos, notes and more"
   (highlight-regexp "@TODO" 'hi-pink)
   (highlight-regexp "@BUG" 'hi-red)
-  (highlight-regexp "@REFACTOR" 'hi-green)
+  (highlight-regexp "@HERE" 'hi-green)
   (highlight-regexp "@NOTE" 'hi-blue))
 (add-hook 'find-file-hook (lambda () (meta_highlight)))
 
@@ -74,7 +80,7 @@
 (display-time-mode 1)
 
 ;; highlight current line
-(global-hl-line-mode 1)
+(global-hl-line-mode 0)
 
 ;; disable all GUI bars
 (menu-bar-mode -1)
@@ -82,24 +88,28 @@
 (scroll-bar-mode -1)
 
 ;; dope bitmap fonts
-;; set-frame-font "Spleen 32x64 12" nil t)
+;;(set-frame-font "Spleen 32x64 10" nil t)
 ;;(set-frame-font "scientifica 12" nil t)
-;; add gnu unifont
-;; more normal fonts...
-;;(set-frame-font "Hack 10" nil t)
-(set-frame-font "Iosevka 11" nil t)
 ;;(set-frame-font "IBMPlexMono 10" nil t)
+;; add gnu unifont
+(set-frame-font "Iosevka 10" nil t)
+;;@TODO -- emoji display problem...
+;;(set-frame-font "Hack 12" nil t)
 
 ;; does not display line numbers by default, ps: linum-mode is very slow
-(setq display-line-numbers-type 'visual)
+(setq display-line-numbers-type t)
 (global-set-key (kbd "C-; l") 'display-line-numbers-mode)
 
 ;; Org
 ;; ------------------------------------------------------------
+;; @NOTE (org daily) -- a dashboard for tracking daily todos/goals and what was
+;; done, once day completed, move to a log file
+
 (setq org-agenda-files (list (car default_buffers)))
 (setq org-log-done t)
 (eval-after-load "org" '(progn
-			    (define-key org-mode-map (kbd "C-c a") 'org-agenda) ))
+						  (define-key org-mode-map (kbd "C-c a") 'org-agenda)
+						  (define-key org-mode-map (kbd "C-; /") 'counsel-org-goto-all)))
 ;; M-x ielm for the elisp repl
 ;; @TODO keybinding for dired-at-point for folders
 
@@ -214,12 +224,13 @@ Version 2019-11-04 2021-02-16"
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'prog-mode-hook 'turn-on-auto-fill)
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
-(setq-default fill-column 80)
+(setq-default fill-column 120)
 (setq auto-fill-mode t)
 
 ;; swiper setup
-(add-to-list 'load-path "~/src/dotfiles/emacs/swiper")
 (require 'ivy)
+(require 'swiper)
+(require 'counsel)
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
@@ -228,8 +239,7 @@ Version 2019-11-04 2021-02-16"
 (evil-global-set-key 'normal (kbd "/") 'swiper-isearch)
 (evil-global-set-key 'insert (kbd "TAB") 'dabbrev-completion)
 (global-set-key (kbd "C-s") 'swiper-isearch)
-(evil-global-set-key 'normal (kbd "/") 'swiper-isearch)
-(global-set-key (kbd "M-x") 'counsel-M-x)
+;;(global-set-key (kbd "M-x") 'counsel-M-x)
 
 
 (evil-leader/set-key
@@ -266,30 +276,21 @@ Version 2019-11-04 2021-02-16"
 ;; Programming
 ;; ------------------------------------------------------------
 ;; @TODO Snippets (see the .el file which allows to customize snippets manually)
-
-
 ;; @TODO Syntax checking for all modes?
-;; @TODO Setup autocomplete C-; K
+;; @TODO Setup autocomplete C-; K and LSP
 (global-set-key (kbd "C-; k") 'dabbrev-expand)
 (icomplete-mode t)
 
 ;; python mode
 ;; @TODO black formatting and reload upon save
+;; build function to execute program
+;; flymake of flycheck setup
 (add-hook 'python-mode-hook
     (lambda ()
 	    (setq-default indent-tabs-mode nil)
 	    (setq-default tab-width 4)
 	    (setq-default py-indent-tabs-mode t)
-<<<<<<< HEAD
 		(add-to-list 'write-file-functions 'delete-trailing-whitespace)))
-
-
-;; lisp
-;; schemes - Racket
-(add-to-list 'load-path "~/src/dotfiles/emacs/geiser/elisp")
-(add-to-list 'load-path "~/src/dotfiles/emacs/racket")
-(require 'geiser-racket)
-(setq geiser-racket-binary "~/racket/bin/racket")
 
 
 ;; Startup
@@ -311,7 +312,7 @@ Version 2019-11-04 2021-02-16"
 (ibuffer)
 (global-set-key (kbd "C-; b") 'ibuffer)
 (cd source_dir)
-        (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+(add-to-list 'write-file-functions 'delete-trailing-whitespace)
 
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
@@ -320,12 +321,3 @@ Version 2019-11-04 2021-02-16"
 ;; %autoreload 2
 ;; -----
 ;; python-check with black on save
-
-
-;; Common lisp
-;;@TODO figure out a way to setup good parenthesis editing
-
-;; SLIME for common lisp
-(load (expand-file-name "C:/Users/roum5/quicklisp/slime-helper.el"))
-;; Replace "sbcl" with the path to your implementation
-(setq inferior-lisp-program "C:/Users/roum5/lisp/sbcl/sbcl")
