@@ -22,12 +22,16 @@
 ;; (setq source_dir "~/src/")
 ;; Startup emacs in the source directory and open the default buffers.
 ;; windows
-(setq source_dir "C:\\Users\\roum5\\source\\")
+
+(cond ((string-equal system-type "windows-nt") (setq source_dir "C:\\Users\\roum5\\source\\"))
+      ((string-equal system-type "gnu/linux") (setq source_dir "/home/max/src/")))
+
 (setq file_list (list
-		 "log/src/orthodontics.org"
-		 "log/src/chaos.org"
-		 "dotfiles/emacs/config.el"))
+		 "log/src/"
+		 "dotfiles/"
+         "mr-emacs"))
 (setq default_buffers (mapcar (lambda (x) (concat source_dir x)) file_list)) ;; concatenate to file-list
+
 ;; Evil-mode (because otherwise i'll be getting cubital tunnel)
 ;; ------------------------------------------------------------
 ;; @TODO set evil keybindings with local leader for common commands
@@ -37,11 +41,11 @@
 ;; @TODO emojis
 ;; @TODO static website in org=mode (custom html/css export)
 ;; @TODO remap these asap > (other-window), (switch-to-buffer), etc
-(add-to-list 'load-path "C:/Users/roum5/source/dotfiles/emacs/evil-leader")
-(add-to-list 'load-path "C:/Users/roum5/source/dotfiles/emacs/evil")
-(add-to-list 'load-path "C:/Users/roum5/source/dotfiles/emacs/evil-org-mode")
-(add-to-list 'load-path "C:/Users/roum5/source/dotfiles/emacs/swiper")
-(add-to-list 'load-path "C:/Users/roum5/source/dotfiles/emacs/themes/")
+(add-to-list 'load-path (concat source_dir "dotfiles/emacs/evil-leader"))
+(add-to-list 'load-path (concat source_dir "dotfiles/emacs/evil"))
+(add-to-list 'load-path (concat source_dir "dotfiles/emacs/evil-org-mode"))
+(add-to-list 'load-path (concat source_dir "dotfiles/emacs/swiper"))
+(add-to-list 'load-path (concat source_dir "dotfiles/emacs/themes/"))
 
 (require 'evil-leader)
 (global-evil-leader-mode)
@@ -97,7 +101,7 @@
 ;;(set-frame-font "Hack 12" nil t)
 
 ;; does not display line numbers by default, ps: linum-mode is very slow
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'visual)
 (global-set-key (kbd "C-; l") 'display-line-numbers-mode)
 
 ;; Org
